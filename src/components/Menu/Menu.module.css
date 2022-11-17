@@ -1,0 +1,142 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	width: fit-content;
+	background-color: var(--bgColor);
+	color: var(--contrast);
+	height: 100%;
+}
+
+.burger {
+	position: absolute;
+	top: 0.5rem;
+	right: 1rem;
+	display: none;
+	flex-direction: column;
+	justify-content: space-between;
+	/* width: 30px;
+	height: 21px; */
+	font-size: 2rem;
+	color: var(--higlight);
+}
+
+.navigation {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.navLinkWrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.navLink__Main {
+	display: flex;
+	flex-direction: column;
+}
+
+.navEl {
+	text-align: left;
+	color: var(--contrast);
+	text-decoration: none;
+	font-size: 1.5rem;
+	font-weight: bold;
+	padding: 1rem;
+	margin: 2rem 1rem;
+	margin-bottom: 0;
+	border-radius: 6px;
+}
+
+.subMenuButton {
+	font-size: 2rem;
+	padding: 0 1rem;
+}
+
+.subMenuButton:hover {
+	color: var(--activeLink);
+}
+
+.navEl:hover {
+	text-decoration: underline;
+}
+
+.navElOpen {
+	border: var(--higlight) solid 1px;
+	/* border-bottom: var(--contrast) dotted 1px; */
+}
+
+.subM {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	width: 80%;
+	margin: 0 10%;
+	height: 1rem;
+	visibility: hidden;
+	border: var(--higlight) solid 1px;
+	border-top: none;
+	overflow: hidden;
+	/* background-color: var(--higlight); */
+}
+
+.subM_Visible {
+	height: 100%;
+	visibility: visible;
+	/* animation: showSubMenu 500ms both; */
+}
+
+.navSubEl1 {
+	font-size: 0.8rem;
+	margin: 0.2rem 0;
+	padding: 0.25rem 0.5rem;
+	width: fit-content;
+	text-align: right;
+	/* font-size: 0.8rem;
+	margin: 0.5rem 2rem;
+	padding: 0.5rem;
+	width: fit-content; */
+}
+
+.active {
+	color: var(--bgColor);
+	background-color: var(--contrast);
+	text-decoration: underline;
+}
+
+@keyframes showSubMenu {
+	0% {
+		height: 1rem;
+		visibility: visible;
+	}
+	100% {
+		height: 100%;
+		visibility: visible;
+	}
+}
+
+@media (max-width: 768px) {
+	.container {
+		min-width: 100vw;
+		display: none;
+	}
+
+	.show {
+		display: flex;
+	}
+
+	.burger {
+		display: flex;
+	}
+
+	.hide {
+		display: none;
+	}
+
+	.list {
+		width: 100%;
+	}
+}

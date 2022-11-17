@@ -1,0 +1,42 @@
+.container {
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.addEmployee {
+	padding: 16px 1%;
+	margin-bottom: 2%;
+	border-bottom: 1px solid var(--higlight);
+}
+
+.addEmployee:hover {
+	background-color: var(--higlight);
+	border-radius: 5px;
+	box-shadow: 2px 2px 2px var(--bgColor);
+	color: var(--contrast);
+	cursor: pointer;
+}
+
+.empCardsList {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-around;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
+
+.empCard {
+	background-color: var(--contrast);
+	width: 30%;
+	padding: 2%;
+	border: solid 1px var(--bgColor);
+	border-radius: 10px;
+	box-shadow: 2px 2px 2px var(--bgColor);
+}

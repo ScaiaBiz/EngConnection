@@ -1,0 +1,61 @@
+.ldsDualRing {
+	display: flex;
+	position: absolute;
+	align-items: center;
+	justify-content: center;
+	width: 64px;
+	height: 64px;
+}
+.ldsDualRing2 {
+	display: flex;
+	position: absolute;
+	align-items: center;
+	justify-content: center;
+	width: 84px;
+	height: 84px;
+}
+
+.ldsDualRing:after {
+	content: ' ';
+	display: block;
+	width: 46px;
+	height: 46px;
+	margin: 1px;
+	border-radius: 50%;
+	border: 5px solid black;
+	border-color: var(--higlight) transparent var(--higlight) transparent;
+	animation: ldsDualRing 1.2s linear infinite;
+}
+.ldsDualRing2:after {
+	content: ' ';
+	display: block;
+	width: 76px;
+	height: 76px;
+	margin: 1px;
+	border-radius: 50%;
+	border: 5px solid black;
+	border-color: var(--bgColor) transparent var(--bgColor) transparent;
+	animation: ldsDualRing 1.2s linear infinite reverse;
+}
+
+.loadingSpinner__overlay {
+	height: 100vh;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: var(--backdrop);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+}
+
+@keyframes ldsDualRing {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

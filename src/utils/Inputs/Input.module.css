@@ -1,0 +1,108 @@
+input {
+	font-size: inherit;
+	padding: 1%;
+}
+
+.formCtrl {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 12%;
+	width: 45%;
+	font-size: inherit;
+	font-weight: bold;
+}
+
+.formCtrl__small {
+	width: 20%;
+}
+
+textarea {
+	width: 80%;
+	height: 10rem;
+	max-width: 100%;
+	padding: 0.5%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.errorText {
+	color: var(--error);
+	font-weight: bold;
+}
+
+.checkbox {
+	scale: 1.5;
+	/* margin-top: 5px; */
+}
+
+.radio {
+	display: flex;
+	width: 30%;
+	justify-content: space-around;
+}
+
+.radio_container {
+	justify-content: space-evenly;
+	width: 50%;
+}
+
+.radio_dot {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 10%;
+	min-width: 36px;
+	/* margin-left: 90%; */
+}
+
+.radio_input {
+	border: 1px solid red;
+}
+.radio_label {
+	/* width: 33%; */
+	display: flex;
+	align-items: center;
+	margin-left: 5%;
+}
+
+.dropdownTime {
+	display: flex;
+	border: solid 1px red;
+	background-color: chartreuse;
+}
+
+.dropdownTime_hours {
+	width: 25%;
+}
+
+.hours {
+	width: 90%;
+}
+
+.quarters {
+	width: 90%;
+}
+
+@media (max-width: 768px) {
+	.radio {
+		width: 100%;
+	}
+
+	.radio_dot {
+		font-size: 24px;
+	}
+
+	textarea {
+		height: 10rem;
+	}
+	.formCtrl {
+		width: 100%;
+	}
+
+	.errorText {
+		text-align: center;
+		width: 100%;
+	}
+}

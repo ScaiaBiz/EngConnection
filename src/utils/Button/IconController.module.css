@@ -1,0 +1,40 @@
+.rem3 {
+	font-size: 3rem;
+}
+.rem2 {
+	font-size: 2rem;
+}
+.rem1 {
+	font-size: 1rem;
+}
+
+.icons {
+	cursor: pointer;
+	color: var(--COMPLETEDtext);
+}
+
+.icons:hover {
+	text-shadow: 0px 0px 6px var(--COMPLETEDtext);
+}
+
+.black {
+	color: black;
+}
+
+.black:hover {
+	color: var(--contrast);
+}
+
+.green:hover {
+	color: var(--ONGOING);
+}
+.yellow:hover {
+	color: var(--PAUSED);
+}
+.red:hover {
+	color: var(--ABORTED);
+}
+
+.sky:hover {
+	color: var(--TODO);
+}

@@ -1,0 +1,60 @@
+.background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background-color: var(--backdrop);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 50;
+}
+
+.container {
+	position: absolute;
+	top: 20%;
+	left: 25%;
+	height: 60%;
+	width: 50%;
+	background-color: var(--bgLight);
+	border: 1px solid var(--higlight);
+	border-radius: 10px;
+	box-shadow: 2px 2px 2px var(--bgColor);
+	padding: 2%;
+	z-index: 60;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.title {
+	font-size: 2rem;
+	width: 100%;
+	text-align: center;
+	line-height: 1;
+	padding: 0 0 3% 0;
+	border-bottom: 1px solid;
+}
+
+/* .title p {
+} */
+.form {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	overflow: auto;
+	/* padding-bottom: 50px; */
+	height: 100%;
+}
+.form__inputs {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	height: fit-content;
+}
