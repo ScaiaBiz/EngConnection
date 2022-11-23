@@ -89,7 +89,12 @@ function Menu() {
 						>
 							{e.description}
 						</NavLink>
-						<div id={e._id} className={`${classes.subM}`} level={level}>
+						<div
+							key={e.id}
+							id={e._id}
+							className={`${classes.subM}`}
+							level={level}
+						>
 							{subElement}
 						</div>
 					</React.Fragment>
@@ -123,7 +128,7 @@ function Menu() {
 				)}
 			</div>
 			<div className={`${classes.container} ${isActive ? classes.show : ''}`}>
-				<nav className={classes.navigation}>
+				<nav key={'nav'} className={classes.navigation}>
 					{evalMenuElements(MenuElements)}
 				</nav>
 				<div className={''}>
