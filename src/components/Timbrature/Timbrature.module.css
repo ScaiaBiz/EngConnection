@@ -21,23 +21,20 @@
 	min-width: 200px;
 }
 
-.insertManual {
-	font-size: 1rem;
-	padding: 1rem 0.5rem;
+.insert {
+	width: 50%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.insertButton {
+	font-size: 2rem;
+	padding: 1rem;
 	color: var(--activeLink);
 	background-color: var(--contrast);
 	box-shadow: 1px 2px 3px var(--bgColor);
 	border: 1px solid var(--activeLink);
-	border-radius: 10px;
-}
-
-.insertRefound {
-	font-size: 1.5rem;
-	padding: 1rem 0.5rem;
-	color: var(--contrast);
-	background-color: var(--bgColor);
-	box-shadow: 1px 2px 3px var(--bgColor);
-	border: 1px solid var(--contrast);
 	border-radius: 10px;
 }
 
@@ -61,5 +58,9 @@
 @media (max-width: 768px) {
 	.todayRecords {
 		width: 80%;
+	}
+
+	.insert {
+		width: 100%;
 	}
 }

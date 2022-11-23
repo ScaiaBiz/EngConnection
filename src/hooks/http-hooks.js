@@ -7,11 +7,12 @@ export const useHttpClient = () => {
 	const [error, setError] = useState(null);
 	const APP_name = process.env.REACT_APP_NAME;
 	const SRV_port = process.env.REACT_APP_SRVPORT || 3108;
-	const SRV_name = process.env.REACT_APP_SRVNAME || 'localhost';
+	// const SRV_name = process.env.REACT_APP_SRVNAME || 'localhost';
+
 	//	Casa
-	//	const SRV_debug = process.env.REACT_APP_SRVDEBUG || '192.168.1.14';
+	const SRV_debug = process.env.REACT_APP_SRVDEBUG || '192.168.1.14';
 	//	HotSpot Realme
-	const SRV_debug = process.env.REACT_APP_SRVDEBUG || '192.168.140.38';
+	// const SRV_debug = process.env.REACT_APP_SRVDEBUG || '192.168.140.38';
 
 	const userCtx = useContext(UserCxt);
 

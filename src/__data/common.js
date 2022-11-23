@@ -20,13 +20,6 @@ export const MenuElements = [
 				element: 'Dipendenti',
 				auth: 0,
 			},
-			// {
-			// 	_id: 2020,
-			// 	description: 'Supervisione',
-			// 	path: '/Supervisione',
-			// 	element: 'Supervisione',
-			// 	auth: 0,
-			// },
 		],
 	},
 	{

@@ -9,6 +9,8 @@ import { useHttpClient } from '../../hooks/http-hooks';
 import LoadingSpinner from '../../utils/LoadingSpinner';
 import ErrorModal from '../../utils/ErrorModal';
 
+import IconButton from '../../utils/IconButton';
+
 import InseretManual from './Actions/InsertManual';
 import { TimeFromDateString } from '../../lib/functrions';
 
@@ -117,6 +119,7 @@ function Timbrature() {
 
 	const printTodayRecords = () => {
 		let isExit = true;
+
 		const visualRecords = todayRecords.map(r => {
 			isExit = !isExit;
 			return (
@@ -141,10 +144,16 @@ function Timbrature() {
 				<div className={classes.action} onClick={handlePostRecord}>
 					{todayRecords.length % 2 == 0 ? 'Entra' : 'Esci'}
 				</div>
-				<div className={classes.todayRecords}>{printTodayRecords()}</div>
-				<div className={classes.insertRefound}>Inserisci rimborso</div>
-				<div className={classes.insertManual} onClick={insertManualHandler}>
-					Inserisci timbratura manualmente
+				{todayRecords.length > 0 && (
+					<div className={classes.todayRecords}>{printTodayRecords()}</div>
+				)}
+				<div className={classes.insert}>
+					<div className={classes.insertButton}>
+						<IconButton text={'receipt_long'} />
+					</div>
+					<div className={classes.insertButton} onClick={insertManualHandler}>
+						<IconButton text={'more_time'} />
+					</div>
 				</div>
 			</div>
 		</React.Fragment>
