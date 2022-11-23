@@ -1,0 +1,11 @@
+Lista utenti e abilitazioni
+
+Aggiungere utente
+    Nome
+    password
+    mail
+    attivo [t/f]
+    Creare dipendente direttamente da scheda utente
+Modificare utente
+
+Recupera password
