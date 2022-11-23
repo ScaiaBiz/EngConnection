@@ -1,0 +1,12 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	/* font-size: 2rem; */
+}
+
+.header {
+	font-size: 2rem;
+	margin-bottom: 1rem;
+	font-weight: bold;
+}

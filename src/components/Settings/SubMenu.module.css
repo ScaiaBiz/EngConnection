@@ -1,0 +1,33 @@
+.wrapper {
+	display: flex;
+	width: 100%;
+	padding: 1%;
+	border-top: 1px solid var(--contrast);
+	border-bottom: 1px solid var(--contrast);
+	overflow: auto;
+	gap: 1%;
+}
+
+.navEl {
+	text-decoration: none;
+	padding: 1%;
+	width: fit-content;
+	border-radius: 10px;
+}
+
+.navEl:hover {
+	background-color: var(--contrast);
+	box-shadow: 1px 2px 3px var(--higlight);
+}
+
+.active {
+	background-color: var(--activeLink);
+	color: var(--contrast);
+	border: 1px solid var(--higlight);
+	box-shadow: 1px 2px 3px var(--higlight);
+}
+
+.active:hover {
+	background-color: var(--activeLink);
+	color: var(--contrast);
+}
