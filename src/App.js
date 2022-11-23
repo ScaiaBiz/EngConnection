@@ -12,12 +12,14 @@ import Timbrature from './components/Timbrature/Timbrature';
 import Presenze from './components/Presenze/Presenze';
 import Dipendenti from './components/Presenze/Dipendenti';
 import Settings from './components/Settings/Settings';
+import Users from './components/Settings/Users/Users';
 
 const comp = {
 	Timbratore: <Timbrature />,
 	Presenze: <Presenze />,
 	Dipendenti: <Dipendenti />,
 	Impostazioni: <Settings />,
+	Utenti: <Users />,
 };
 
 function App() {
