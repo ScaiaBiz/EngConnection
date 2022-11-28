@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.9585935a.css",
-    "main.js": "/static/js/main.afb85073.js",
+    "main.css": "/static/css/main.db5dac06.css",
+    "main.js": "/static/js/main.0e88f3e8.js",
     "static/media/MaterialSymbolsOutlined.ttf": "/static/media/MaterialSymbolsOutlined.d583d977b9343d80a0d8.ttf",
     "index.html": "/index.html",
-    "main.9585935a.css.map": "/static/css/main.9585935a.css.map",
-    "main.afb85073.js.map": "/static/js/main.afb85073.js.map"
+    "main.db5dac06.css.map": "/static/css/main.db5dac06.css.map",
+    "main.0e88f3e8.js.map": "/static/js/main.0e88f3e8.js.map"
   },
   "entrypoints": [
-    "static/css/main.9585935a.css",
-    "static/js/main.afb85073.js"
+    "static/css/main.db5dac06.css",
+    "static/js/main.0e88f3e8.js"
   ]
 }
