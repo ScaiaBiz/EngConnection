@@ -38,7 +38,8 @@
 }
 
 .empWrapper {
-	overflow: auto;
+	/* overflow: auto; */
+	width: auto;
 }
 
 .employeeCard {
@@ -78,7 +79,7 @@
 
 .cardRows {
 	padding-top: 1%;
-	min-width: max-content;
+	/* min-width: max-content; */
 }
 
 .dailyRow {
@@ -118,6 +119,17 @@
 	margin-right: 10px;
 	/* font-size: 0.8rem; */
 }
+
+.manualInput {
+	color: var(--higlight);
+	text-decoration: underline;
+	font-weight: 500;
+}
+
+.officeInput {
+	text-decoration: underline;
+}
+
 .dailyTime_time:hover {
 	text-shadow: 0 0 1px var(--STOPED);
 	text-decoration: underline;

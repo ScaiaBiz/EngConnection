@@ -152,6 +152,26 @@ function EditRecord({ clear, wData }) {
 						{wData.employee.name} {wData.employee.surname}
 					</p>
 					<p>{wData.date}</p>
+					{wData.record.officeInput && (
+						<p className={classes.insertString}>
+							Inserito da ufficio il
+							{`: ${new Date(wData.record.officeInputDate).toLocaleDateString(
+								'it-IT'
+							)} - ${new Date(wData.record.officeInputDate).toLocaleTimeString(
+								'it-IT'
+							)}`}
+						</p>
+					)}
+					{wData.record.manualInput && (
+						<p className={classes.insertString}>
+							Inserito da manualmente il
+							{`: ${new Date(wData.record.manualInputDate).toLocaleDateString(
+								'it-IT'
+							)} - ${new Date(wData.record.manualInputDate).toLocaleTimeString(
+								'it-IT'
+							)}`}
+						</p>
+					)}
 				</div>
 				<div className={classes.form}>
 					<section className={classes.form__inputs}>{setInputs()}</section>
@@ -184,8 +204,6 @@ function EditRecord({ clear, wData }) {
 						window.open(getLink(), '_blank').focus();
 					}}
 				/>
-				{/* <a href={getLink()} target='_blank'> */}
-				{/* </a> */}
 			</div>
 		</React.Fragment>
 	);

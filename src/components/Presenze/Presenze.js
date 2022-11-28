@@ -207,7 +207,9 @@ function Presenze() {
 							{movements.map(m => {
 								return (
 									<div
-										className={classes.dailyTime_time}
+										className={`${classes.dailyTime_time} ${
+											m.manualInput && classes.manualInput
+										} ${m.officeInput && classes.officeInput}`}
 										onClick={() =>
 											setCurrentDate({
 												date: fDate,
