@@ -36,6 +36,13 @@ export const MenuElements = [
 				element: 'Utenti',
 				auth: 0,
 			},
+			{
+				_id: 3990,
+				description: 'Supervisione',
+				path: '/Supervisione',
+				element: 'Supervisione',
+				auth: 0,
+			},
 		],
 	},
 ];
