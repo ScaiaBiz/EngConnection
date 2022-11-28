@@ -229,6 +229,13 @@ function Presenze() {
 							} ${Number(workedMins) == 0 ? classes.totRowHidden : ''}
 							`}
 						>
+							<div
+								className={`
+							${classes.totRow__desc}
+							`}
+							>
+								Totale:{' '}
+							</div>
 							{workedMins < 0 ? 'Errore' : TotalMinToHourMin(workedMins)}
 						</div>
 						<div
@@ -237,6 +244,14 @@ function Presenze() {
 							${Number(rowExtra) <= 0 ? classes.totRowHidden : ''}
 							`}
 						>
+							<div
+								className={`
+							${classes.totRow__desc}
+							${Number(rowExtra) <= 0 ? classes.totRowHidden : ''}
+							`}
+							>
+								Extra:{' '}
+							</div>
 							{TotalMinToHourMin(rowExtra)}
 						</div>
 						<div
@@ -275,7 +290,7 @@ function Presenze() {
 			);
 
 			let card = (
-				<div key={e._id} id={e._id}>
+				<div key={e._id} id={e._id} className={classes.empWrapper}>
 					<div className={classes.employeeCard}>
 						<div className={classes.employeeCardHeader}>
 							<div className={classes.employeeCardHeader__Name}>

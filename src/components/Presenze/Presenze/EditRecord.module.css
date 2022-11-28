@@ -58,3 +58,12 @@
 	justify-content: center;
 	height: fit-content;
 }
+
+@media (max-width: 768px) {
+	.container {
+		top: 5%;
+		left: 5%;
+		height: 90%;
+		width: 90%;
+	}
+}
