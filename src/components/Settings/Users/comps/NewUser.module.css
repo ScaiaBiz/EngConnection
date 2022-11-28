@@ -1,4 +1,4 @@
-.container {
+.background {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -14,9 +14,9 @@
 
 .content {
 	position: absolute;
-	top: 10%;
+	top: 25%;
 	left: 25%;
-	height: 80%;
+	height: 40%;
 	width: 50%;
 	background-color: var(--bgLight);
 	border: 1px solid var(--higlight);
@@ -32,22 +32,29 @@
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
-	align-items: flex-start;
+	align-items: center;
 	justify-content: space-between;
 	overflow: auto;
 	padding-bottom: 50px;
 }
 
+.form__buttons {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	width: 100%;
+}
+
 @media (max-width: 768px) {
 	.content {
-		top: 5%;
-		left: 5%;
-		height: 90%;
-		width: 90%;
-		flex-direction: column;
+		top: 1%;
+		left: 2%;
+		height: 98%;
+		width: 96%;
 	}
 
 	.form {
-		overflow: unset;
+		flex-direction: column;
+		align-items: center;
 	}
 }

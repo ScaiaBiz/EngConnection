@@ -164,6 +164,16 @@ function EditDipendente({ close, employee }) {
 		return inputsVisual;
 	};
 
+	const getInlineAbortStyle = () => {
+		const { innerWidth: width } = window;
+		console.log(width);
+		if (width >= 768) {
+			return { width: 25 + '%', fontSize: 20 + 'px' };
+		} else {
+			return { width: 94 + '%', fontSize: 20 + 'px' };
+		}
+	};
+
 	return (
 		<React.Fragment>
 			{isLoading && <LoadingSpinner asOverlay />}
@@ -191,7 +201,7 @@ function EditDipendente({ close, employee }) {
 				<Button
 					clname='danger'
 					onClick={closeCard}
-					style={{ width: 25 + '%', fontSize: 20 + 'px' }}
+					style={getInlineAbortStyle()}
 				>
 					Annulla
 				</Button>

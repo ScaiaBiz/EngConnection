@@ -35,8 +35,6 @@ function Dipendenti() {
 		setShowEditEmployee(!showEditEmployee);
 	};
 
-	// const []
-
 	const getEmployeesList = async () => {
 		let data = await sendRequest('employee/getEmployeesList');
 		console.log(data);

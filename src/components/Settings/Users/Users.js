@@ -1,124 +1,84 @@
 import React, { useState, useEffect } from 'react';
 import ReactDom from 'react-dom';
 
-import classes from './Dipendenti.module.css';
+import classes from './Users.module.css';
 
-import { useHttpClient } from '../../hooks/http-hooks';
-import LoadingSpinner from '../../utils/LoadingSpinner';
-import ErrorModal from '../../utils/ErrorModal';
+import NewUser from './comps/NewUser';
+import EditUser from './comps/EditUser';
 
-import NewDipendente from './Dipendenti/NewDipendente';
-import EditDipendente from './Dipendenti/EditDipendente';
+import { useHttpClient } from '../../../hooks/http-hooks';
+import LoadingSpinner from '../../../utils/LoadingSpinner';
+import ErrorModal from '../../../utils/ErrorModal';
 
-function Dipendenti() {
+function Users() {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-	const [employees, setEmployees] = useState(null);
-
-	const [selectedEmplyee, setSelectedEmplyee] = useState(null);
-	const [showAddEmployee, setShowAddEmployee] = useState(false);
-	const handleAddEmployee = (reload = false) => {
-		setShowAddEmployee(!showAddEmployee);
+	const [usersList, setUsersList] = useState(null);
+	const [selectedUser, setSelectedUser] = useState(null);
+	const [showAddUser, setShowAddUser] = useState(false);
+	const handleAddUser = (reload = false) => {
+		setShowAddUser(!showAddUser);
 		if (reload) {
-			getEmployeesList();
+			getUserList();
 		}
 	};
 
-	const [showEditEmployee, setShowEditEmployee] = useState(false);
-	const handleEditEmployee = (reload = false) => {
-		if (showEditEmployee) {
-			setSelectedEmplyee(null);
-		}
-		if (reload) {
-			getEmployeesList();
-		}
-		setShowEditEmployee(!showEditEmployee);
-	};
-
-	// const []
-
-	const getEmployeesList = async () => {
-		let data = await sendRequest('employee/getEmployeesList');
+	const getUserList = async () => {
+		let data = await sendRequest('authentication/usersList');
 		console.log(data);
-		setEmployees(data);
+		setUsersList(data);
 	};
 
 	useEffect(() => {
-		getEmployeesList();
+		getUserList();
 	}, []);
 
-	const addNewEmployee = () => {
-		const newEmployeeForm = <NewDipendente close={handleAddEmployee} />;
-		return ReactDom.createPortal(
-			newEmployeeForm,
-			document.getElementById('modal-hook')
-		);
-	};
-
-	const editEmployee = () => {
-		console.log(selectedEmplyee);
-		const editEmployee = (
-			<EditDipendente close={handleEditEmployee} employee={selectedEmplyee} />
-		);
-
-		return ReactDom.createPortal(
-			editEmployee,
-			document.getElementById('modal-hook')
-		);
-	};
-
-	useEffect(() => {
-		if (selectedEmplyee) {
-			console.log(selectedEmplyee);
-			handleEditEmployee();
-		}
-	}, [selectedEmplyee]);
-
-	const createEmployeesVisula = () => {
-		const visual = employees.map(e => {
+	const createUsersVisual = () => {
+		const visual = usersList.map(e => {
 			return (
 				<div
 					key={e._id}
-					className={`${classes.empCard} ${e.isActive}`}
-					onClick={() => setSelectedEmplyee(e)}
+					className={`${classes.userCard}`}
+					// onClick={() => setSelectedEmplyee(e)}
 				>
-					<h2>
-						{e.name} {e.surname}
-					</h2>
-					<p>Arrotondamento ENTRATA: {e.roundsIN}</p>
-					<p>Arrotondamento USCITA: {e.roundsOUT}</p>
-					<p>Straordinari: {e.enableExtras ? 'Abilitati' : 'No'}</p>
+					<h2>{e.name}</h2>
+					<p>Amministratore: {e.isAdmin ? 'Sì' : 'No'}</p>
+					<p>Autorizzazioni: ... </p>
 					<br />
-					<p>
-						Collegato a utente: <b>{e.userId.name}</b>
-					</p>
 				</div>
 			);
 		});
 		return visual;
 	};
 
+	const addNewUser = () => {
+		const newUserForm = <NewUser close={handleAddUser} />;
+		return ReactDom.createPortal(
+			newUserForm,
+			document.getElementById('modal-hook')
+		);
+	};
+
 	return (
 		<React.Fragment>
 			{isLoading && <LoadingSpinner asOverlay />}
 			{error && <ErrorModal error={error} onClear={clearError} />}
-			{showAddEmployee && addNewEmployee()}
-			{showEditEmployee && editEmployee()}
-			<div className={classes.container}>
+			{showAddUser && addNewUser()}
+			<div className={classes.wrapper}>
 				<h1
-					className={classes.addEmployee}
+					className={classes.addUser}
 					onClick={() => {
-						handleAddEmployee();
+						handleAddUser();
 					}}
 				>
-					Aggiungi Nuovo
+					Nuovo UTENTE
 				</h1>
-				<section className={classes.empCardsList}>
-					{employees && createEmployeesVisula()}
+				<section className={classes.userCardsList}>
+					{usersList && createUsersVisual()}
 				</section>
 			</div>
 		</React.Fragment>
 	);
 }
 
-export default Dipendenti;
+export default Users;
