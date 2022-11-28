@@ -105,7 +105,8 @@
 	/* width: 100%; */
 	align-items: center;
 	justify-content: flex-start;
-	min-width: 320px;
+	width: 300px;
+	flex-wrap: wrap;
 }
 
 .dailyTime_time {
@@ -123,6 +124,7 @@
 	/* padding: 0 6px; */
 	min-width: 80px;
 	text-align: right;
+	align-self: center;
 }
 
 .totRowHidden {

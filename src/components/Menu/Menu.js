@@ -15,6 +15,11 @@ function Menu() {
 	const [isActive, setIsActive] = useState(false);
 	const isActiveHandler = () => {
 		setIsActive(!isActive);
+		// if (!isActive) {
+		const content = document.getElementById('CONTENT_APP');
+		console.log({ content });
+		content.classList.toggle(classes.hide);
+		// }
 	};
 
 	const context = useContext(UserCxt);

@@ -40,3 +40,9 @@
 	border-radius: 10px;
 	box-shadow: 2px 2px 2px var(--bgColor);
 }
+
+@media (max-width: 768px) {
+	.empCard {
+		width: 90%;
+	}
+}

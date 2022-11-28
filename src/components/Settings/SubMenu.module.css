@@ -1,16 +1,16 @@
 .wrapper {
 	display: flex;
 	width: 100%;
-	padding: 1%;
+	padding: 0.5rem;
 	border-top: 1px solid var(--contrast);
 	border-bottom: 1px solid var(--contrast);
 	overflow: auto;
-	gap: 1%;
+	gap: 1rem;
 }
 
 .navEl {
 	text-decoration: none;
-	padding: 1%;
+	padding: 0.5rem;
 	width: fit-content;
 	border-radius: 10px;
 }

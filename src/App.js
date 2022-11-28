@@ -67,10 +67,10 @@ function App() {
 	return (
 		<UserCxt.Provider value={{ ...userCtxValue }}>
 			<div className={classes.App}>
-				<div className={classes.menu}>
+				<div className={classes.menu} id='MENU_APP'>
 					<Menu />
 				</div>
-				<div className={classes.content}>
+				<div className={classes.content} id='CONTENT_APP'>
 					<Routes>{evalRoutes(MenuElements)}</Routes>
 				</div>
 			</div>

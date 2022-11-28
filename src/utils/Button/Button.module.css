@@ -8,6 +8,7 @@
 	display: inline-block;
 	box-shadow: 1px 1px 4px var(--bgColor);
 	border: #000 2px solid;
+	min-width: fit-content;
 }
 
 .confirm {
