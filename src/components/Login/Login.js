@@ -195,6 +195,12 @@ function Login() {
 			) : (
 				<div className={classes.container}>{showButton()}</div>
 			)}
+			<div className={classes.imgWrapper}>
+				<img
+					src={require('../../assets/eng_logo.png')}
+					className={classes.logo}
+				/>
+			</div>
 		</React.Fragment>
 	);
 }

@@ -39,3 +39,19 @@
 		width: 80%;
 	}
 }
+
+.imgWrapper {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.logo {
+	width: 150px;
+}
+
+@media (max-width: 768px) {
+	.logo {
+		width: 80px;
+	}
+}
