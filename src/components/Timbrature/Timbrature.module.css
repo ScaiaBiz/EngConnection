@@ -38,6 +38,10 @@
 	border-radius: 10px;
 }
 
+.insertButton:hover {
+	cursor: pointer;
+}
+
 .todayRecords {
 	width: 30%;
 	display: flex;

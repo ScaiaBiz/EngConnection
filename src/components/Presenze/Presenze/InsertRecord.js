@@ -73,7 +73,6 @@ function InsertRecord({ clear, wData }) {
 		let inputs = formState.inputs;
 		let keys = Object.keys(formState.inputs);
 
-		// console.log(wData);
 		const inputsVisual = keys.map(k => {
 			let i = inputs[k];
 			return (

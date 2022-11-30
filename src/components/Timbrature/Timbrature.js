@@ -13,6 +13,8 @@ import IconButton from '../../utils/IconButton';
 
 import InseretManual from './Actions/InsertManual';
 import { TimeFromDateString } from '../../lib/functrions';
+import RefundExpense from './Actions/RefundExpense';
+import RefundTripKm from './Actions/RefundTripKm';
 
 function Timbrature() {
 	const [user, setUser] = useContext(UserCxt).user;
@@ -22,11 +24,15 @@ function Timbrature() {
 	const [position, setPosition] = useState(null);
 	const [postponePostRecord, setPosponePostRecord] = useState(false);
 
+	const [todayExpenseRefound, setTodayExpenseRefound] = useState(null);
+	const [todayTripRefund, setTodayTripRefund] = useState(null);
+
 	const [forceUserLogout, setForceUserLogout] =
 		useContext(UserCxt).handleUserLogout;
 
-	const [showInsertManual, setShowInsertManual] = useState(false);
+	// ------------- Inserimento manuale timbratura ---------------
 
+	const [showInsertManual, setShowInsertManual] = useState(false);
 	const insertManualHandler = () => {
 		console.log(showInsertManual);
 		if (!showInsertManual) {
@@ -35,10 +41,71 @@ function Timbrature() {
 		setShowInsertManual(!showInsertManual);
 	};
 
+	const addRecordManual = () => {
+		const newRecordForm = (
+			<InseretManual
+				clear={insertManualHandler}
+				tagId={user._id}
+				position={position}
+				setTodayRecords={setTodayRecords}
+			/>
+		);
+
+		return ReactDom.createPortal(
+			newRecordForm,
+			document.getElementById('modal-hook')
+		);
+	};
+
+	// ------------- Inserimento rimborso spesa ---------------
+
+	const [showRefundExpense, setShowRefundExpense] = useState(false);
+	const refoundExpenseHandler = () => {
+		setShowRefundExpense(!showRefundExpense);
+	};
+
+	const addRefoundExpense = () => {
+		const newRefoundExpense = (
+			<RefundExpense
+				clear={refoundExpenseHandler}
+				user={user}
+				setTodayExpenseRefound={setTodayExpenseRefound}
+			/>
+		);
+		return ReactDom.createPortal(
+			newRefoundExpense,
+			document.getElementById('modal-hook')
+		);
+	};
+	// ------------- Inserimento rimborso chilometrico ---------------
+
+	const [showRefundTrip, setShowRefundTrip] = useState(false);
+	const refundTripHandler = () => {
+		setShowRefundTrip(!showRefundTrip);
+	};
+
+	const addRefundTrip = () => {
+		const newRefundTrip = (
+			<RefundTripKm
+				clear={refundTripHandler}
+				user={user}
+				setTodayTripRefound={setTodayTripRefund}
+			/>
+		);
+
+		return ReactDom.createPortal(
+			newRefundTrip,
+			document.getElementById('modal-hook')
+		);
+	};
+
 	const getEmployeesDayRecords = async () => {
 		const records = await sendRequest(
 			`attendance/getUserTodayRecords/${user._id}`
 		);
+
+		//todo: Insert today refound EXPENSE e TRIP
+
 		setTodayRecords(records);
 	};
 
@@ -101,22 +168,6 @@ function Timbrature() {
 		);
 	};
 
-	const addRecordManual = () => {
-		const newRecordForm = (
-			<InseretManual
-				clear={insertManualHandler}
-				tagId={user._id}
-				position={position}
-				setTodayRecords={setTodayRecords}
-			/>
-		);
-
-		return ReactDom.createPortal(
-			newRecordForm,
-			document.getElementById('modal-hook')
-		);
-	};
-
 	const printTodayRecords = () => {
 		let isExit = true;
 
@@ -137,6 +188,8 @@ function Timbrature() {
 			{isLoading && <LoadingSpinner asOverlay />}
 			{error && <ErrorModal error={error} onClear={clearError} />}
 			{showInsertManual && addRecordManual()}
+			{showRefundExpense && addRefoundExpense()}
+			{showRefundTrip && addRefundTrip()}
 			<div className={classes.wrapper}>
 				<h1>
 					{user.employee.name} {user.employee.surname}
@@ -148,8 +201,11 @@ function Timbrature() {
 					<div className={classes.todayRecords}>{printTodayRecords()}</div>
 				)}
 				<div className={classes.insert}>
-					<div className={classes.insertButton}>
+					<div className={classes.insertButton} onClick={refoundExpenseHandler}>
 						<IconButton text={'receipt_long'} />
+					</div>
+					<div className={classes.insertButton} onClick={refundTripHandler}>
+						<IconButton text={'directions_car'} />
 					</div>
 					<div className={classes.insertButton} onClick={insertManualHandler}>
 						<IconButton text={'more_time'} />
