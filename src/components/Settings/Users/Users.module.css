@@ -32,6 +32,7 @@
 	height: 100%;
 	overflow: auto;
 	padding-bottom: 2%;
+	gap: 1rem;
 }
 
 .userCard {
