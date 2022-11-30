@@ -155,6 +155,21 @@ const Input = props => {
 						onBlur={toucHandler}
 						value={inputState.value}
 						onClick={props.onClick}
+						style={{ textAlign: 'center' }}
+					/>
+				);
+			case 'value':
+				return (
+					<input
+						key={props.id}
+						id={props.id}
+						type={props.type || 'number'}
+						placeholder={props.placeholder}
+						onChange={changeHandler}
+						onBlur={toucHandler}
+						value={inputState.value}
+						onClick={props.onClick}
+						style={{ textAlign: 'center' }}
 					/>
 				);
 			case 'checkbox':
@@ -278,6 +293,7 @@ const Input = props => {
 						onBlur={toucHandler}
 						value={inputState.value}
 						onClick={props.onClick}
+						placeholder={props.placeholder}
 					/>
 				);
 			default:
