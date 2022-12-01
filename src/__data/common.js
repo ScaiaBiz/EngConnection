@@ -5,13 +5,14 @@ export const MenuElements = [
 		path: '/Timbratore',
 		element: 'Timbratore',
 		auth: 0,
+		requireUser: 'employee',
 	},
 	{
 		_id: 2000,
 		description: 'Presenze',
 		path: '/Presenze',
 		element: 'Presenze',
-		auth: 10,
+		auth: 100,
 		subMenu: [
 			{
 				_id: 2010,

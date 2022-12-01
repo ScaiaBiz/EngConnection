@@ -56,10 +56,17 @@ function Menu() {
 	const evalMenuElements = (el, level = 0, parentPath = '') => {
 		const userLevel = Number(context.user[0].level);
 		const menuEl = el.map(e => {
-			const auth = Object.keys(context.user[0].authorizations);
-			// console.log(auth?.[e.element]);
-			if (Number(e.auth) > userLevel || auth?.[e.element]) {
-				return null;
+			const auth = context.user[0].authorizations.filter(
+				a => a === e.description
+			);
+			if (
+				Number(e.auth) > userLevel ||
+				(e.requireUser !== undefined &&
+					context.user[0][e.requireUser] === undefined)
+			) {
+				if (auth[0] != [e.description]) {
+					return null;
+				}
 			}
 			let classN;
 			switch (level) {
