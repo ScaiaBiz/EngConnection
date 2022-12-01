@@ -90,6 +90,15 @@ html {
 	overflow: hidden;
 }
 
+@media (max-width: 768px) {
+	.content {
+		padding-bottom: 4rem;
+	}
+	.menu {
+		padding-bottom: 2rem;
+	}
+}
+
 /* .App-logo {
 	height: 40vmin;
 	pointer-events: none;
