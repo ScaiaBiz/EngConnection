@@ -42,6 +42,7 @@
 	border: solid 1px var(--bgColor);
 	border-radius: 10px;
 	box-shadow: 2px 2px 2px var(--bgColor);
+	min-width: fit-content;
 }
 
 @media (max-width: 768px) {

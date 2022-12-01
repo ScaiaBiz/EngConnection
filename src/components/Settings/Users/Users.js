@@ -43,7 +43,14 @@ function Users() {
 				>
 					<h2>{e.name}</h2>
 					<p>Amministratore: {e.isAdmin ? 'Sì' : 'No'}</p>
-					<p>Autorizzazioni: ... </p>
+					<p>
+						<b>Autorizzazioni:</b>
+						<ol style={{ paddingLeft: '20px' }}>
+							{e.authorizations.map(auth => (
+								<li>{auth}</li>
+							))}
+						</ol>
+					</p>
 					<br />
 				</div>
 			);
