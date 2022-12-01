@@ -134,7 +134,7 @@ const NewDipendente = ({ close }) => {
 			<div className={classes.content}>
 				<div className={classes.form}>
 					<Find
-						url={`authentication/usersList`}
+						url={`authentication/activeUsersList`}
 						setRes={setLinkToUser}
 						label='Utente collegato'
 						inputId='userId'
