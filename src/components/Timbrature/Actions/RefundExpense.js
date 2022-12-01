@@ -11,7 +11,7 @@ import { useForm } from '../../../hooks/form-hook';
 import { VALIDATOR_REQUIRE } from '../../../utils/validators';
 import { useHttpClient } from '../../../hooks/http-hooks';
 
-function RefundExpense({ clear, user, setTodayExpenseRefound }) {
+function RefundExpense({ clear, user, setTodayExpenseRefund }) {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
 	const [formState, inputHandler, setFormData] = useForm({
@@ -38,7 +38,7 @@ function RefundExpense({ clear, user, setTodayExpenseRefound }) {
 			initIsValid: false,
 			errorText: 'Inserire descrizione',
 			width: '100%',
-			placeholder: 'Desccrizione spesa sostenuta',
+			placeholder: 'Descrivi spesa sostenuta',
 		},
 	});
 
@@ -73,13 +73,32 @@ function RefundExpense({ clear, user, setTodayExpenseRefound }) {
 		clear();
 	};
 
-	const postData = e => {
+	const postData = async e => {
+		e.preventDefault();
+		const record = await sendRequest(
+			'attendance/insertRefundRecord',
+			'POST',
+			{
+				tagId: user._id,
+				employeeId: user.employee?._id,
+				type: 'expense',
+				value: formState.inputs.value.value,
+				description: formState.inputs.description.value,
+			},
+			{ 'Content-Type': 'application/json' }
+		);
 		console.log('Postato');
+		setTodayExpenseRefund(currentRecords => {
+			console.log(currentRecords);
+			return [...currentRecords, record];
+		});
 		clear();
 	};
 
 	return (
 		<React.Fragment>
+			{isLoading && <LoadingSpinner asOverlay />}
+			{error && <ErrorModal error={error} onClear={clearError} />}
 			<div className={classes.background} onClick={clear} />
 			<div className={classes.wrapper}>
 				<div className={classes.mainContent}>

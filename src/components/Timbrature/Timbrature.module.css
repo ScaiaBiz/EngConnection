@@ -21,6 +21,14 @@
 	min-width: 200px;
 }
 
+.buttons {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+}
+
 .insert {
 	width: 50%;
 	display: flex;
@@ -40,6 +48,29 @@
 
 .insertButton:hover {
 	cursor: pointer;
+	/* color: var(--bgColor);
+	border: 1px solid var(--bgColor); */
+	box-shadow: 2px 3px 4px var(--bgColor);
+}
+
+.previusRecords {
+	margin-top: 0.5rem;
+	padding: 0 1rem;
+}
+
+.prevRecCount {
+	font-size: 12px;
+	position: absolute;
+	background-color: var(--activeLink);
+	color: var(--contrast);
+	border-radius: 6px;
+	width: 16px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: -32px;
+	margin-left: 36px;
 }
 
 .todayRecords {
@@ -57,6 +88,10 @@
 .dayRecord {
 	text-align: center;
 	width: 50%;
+}
+
+.hide {
+	visibility: hidden;
 }
 
 @media (max-width: 768px) {

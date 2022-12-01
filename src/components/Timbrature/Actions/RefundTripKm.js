@@ -11,7 +11,7 @@ import { useForm } from '../../../hooks/form-hook';
 import { VALIDATOR_NO, VALIDATOR_REQUIRE } from '../../../utils/validators';
 import { useHttpClient } from '../../../hooks/http-hooks';
 
-function RefundTripKm({ clear, user, setTodayRefound }) {
+function RefundTripKm({ clear, user, setTodayTripRefund }) {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
 	const [formState, inputHandler, setFormData] = useForm({
@@ -96,13 +96,32 @@ function RefundTripKm({ clear, user, setTodayRefound }) {
 		clear();
 	};
 
-	const postData = e => {
+	const postData = async e => {
+		const record = await sendRequest(
+			'attendance/insertRefundRecord',
+			'POST',
+			{
+				tagId: user._id,
+				employeeId: user.employee?._id,
+				type: 'trip',
+				value: formState.inputs.value.value,
+				from: formState.inputs.from.value,
+				to: formState.inputs.to.value,
+				description: formState.inputs.description.value,
+			},
+			{ 'Content-Type': 'application/json' }
+		);
 		console.log('Postato');
+		setTodayTripRefund(currentRecords => {
+			return [...currentRecords, record];
+		});
 		clear();
 	};
 
 	return (
 		<React.Fragment>
+			{isLoading && <LoadingSpinner asOverlay />}
+			{error && <ErrorModal error={error} onClear={clearError} />}
 			<div className={classes.background} onClick={clear} />
 			<div className={classes.wrapper}>
 				<div className={classes.mainContent}>

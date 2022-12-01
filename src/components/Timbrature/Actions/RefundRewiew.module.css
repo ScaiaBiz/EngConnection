@@ -30,28 +30,19 @@
 	overflow: auto;
 }
 
-.mainContent {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
-	width: 96%;
-	height: 96%;
-}
-
-.inputs {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
+.card {
+	margin: 0.5rem;
+	padding: 0.5rem;
+	background-color: var(--contrast);
+	border: 1px solid var(--bgColor);
+	border-radius: 10px;
 }
 
 @media (max-width: 768px) {
 	.wrapper {
-		top: 3%;
+		top: 8%;
 		left: 5%;
-		height: 96%;
+		height: 84%;
 		width: 90%;
 	}
 }
