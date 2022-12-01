@@ -69,8 +69,8 @@ function Login() {
 			);
 			console.log(responseData);
 		}
+		goTo('/');
 		setUser(null);
-		goTo('/Timbratore');
 	};
 
 	const postSignIn = async e => {
@@ -89,6 +89,7 @@ function Login() {
 		);
 		if (responseData) {
 			setUser(responseData);
+			goTo('/Timbratore');
 		}
 	};
 
@@ -111,6 +112,9 @@ function Login() {
 			);
 		}
 		localStorage.setItem(LS_Area, JSON.stringify(user));
+		if (user?.employee) {
+			goTo('/Timbratore');
+		}
 	}, [setFormData, user]);
 
 	useEffect(() => {
