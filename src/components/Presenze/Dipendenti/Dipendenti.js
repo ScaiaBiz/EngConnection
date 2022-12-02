@@ -3,12 +3,12 @@ import ReactDom from 'react-dom';
 
 import classes from './Dipendenti.module.css';
 
-import { useHttpClient } from '../../hooks/http-hooks';
-import LoadingSpinner from '../../utils/LoadingSpinner';
-import ErrorModal from '../../utils/ErrorModal';
+import { useHttpClient } from '../../../hooks/http-hooks';
+import LoadingSpinner from '../../../utils/LoadingSpinner';
+import ErrorModal from '../../../utils/ErrorModal';
 
-import NewDipendente from './Dipendenti/NewDipendente';
-import EditDipendente from './Dipendenti/EditDipendente';
+import NewDipendente from './comps/NewDipendente';
+import EditDipendente from './comps/EditDipendente';
 
 function Dipendenti() {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();

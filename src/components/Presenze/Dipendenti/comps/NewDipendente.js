@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 
 import classes from './NewDipendente.module.css';
 
-import { useForm } from '../../../hooks/form-hook';
-import { VALIDATOR_NO, VALIDATOR_REQUIRE } from '../../../utils/validators';
-import { useHttpClient } from '../../../hooks/http-hooks';
+import { useForm } from '../../../../hooks/form-hook';
+import { VALIDATOR_NO, VALIDATOR_REQUIRE } from '../../../../utils/validators';
+import { useHttpClient } from '../../../../hooks/http-hooks';
 
-import Find from '../../../utils/Inputs/Find';
-import Input from '../../../utils/Inputs/Input';
-import Button from '../../../utils/Button/Button';
-import LoadingSpinner from '../../../utils/LoadingSpinner';
-import ErrorModal from '../../../utils/ErrorModal';
+import Find from '../../../../utils/Inputs/Find';
+import Input from '../../../../utils/Inputs/Input';
+import Button from '../../../../utils/Button/Button';
+import LoadingSpinner from '../../../../utils/LoadingSpinner';
+import ErrorModal from '../../../../utils/ErrorModal';
 
 const NewDipendente = ({ close }) => {
 	const [linkToUser, setLinkToUser] = useState('');

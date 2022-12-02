@@ -2,14 +2,14 @@ import React from 'react';
 
 import classes from './EditDipendente.module.css';
 
-import { useForm } from '../../../hooks/form-hook';
-import { VALIDATOR_NO, VALIDATOR_REQUIRE } from '../../../utils/validators';
-import { useHttpClient } from '../../../hooks/http-hooks';
+import { useForm } from '../../../../hooks/form-hook';
+import { VALIDATOR_NO, VALIDATOR_REQUIRE } from '../../../../utils/validators';
+import { useHttpClient } from '../../../../hooks/http-hooks';
 
-import Input from '../../../utils/Inputs/Input';
-import Button from '../../../utils/Button/Button';
-import LoadingSpinner from '../../../utils/LoadingSpinner';
-import ErrorModal from '../../../utils/ErrorModal';
+import Input from '../../../../utils/Inputs/Input';
+import Button from '../../../../utils/Button/Button';
+import LoadingSpinner from '../../../../utils/LoadingSpinner';
+import ErrorModal from '../../../../utils/ErrorModal';
 
 function EditDipendente({ close, employee }) {
 	// console.log(employee);

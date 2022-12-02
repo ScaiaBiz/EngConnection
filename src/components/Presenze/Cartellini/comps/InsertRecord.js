@@ -2,14 +2,14 @@ import React from 'react';
 
 import classes from './InsertRecord.module.css';
 
-import LoadingSpinner from '../../../utils/LoadingSpinner';
-import ErrorModal from '../../../utils/ErrorModal';
-import Button from '../../../utils/Button/Button';
-import Input from '../../../utils/Inputs/Input';
+import LoadingSpinner from '../../../../utils/LoadingSpinner';
+import ErrorModal from '../../../../utils/ErrorModal';
+import Button from '../../../../utils/Button/Button';
+import Input from '../../../../utils/Inputs/Input';
 
-import { useForm } from '../../../hooks/form-hook';
-import { VALIDATOR_MIN, VALIDATOR_MAX } from '../../../utils/validators';
-import { useHttpClient } from '../../../hooks/http-hooks';
+import { useForm } from '../../../../hooks/form-hook';
+import { VALIDATOR_MIN, VALIDATOR_MAX } from '../../../../utils/validators';
+import { useHttpClient } from '../../../../hooks/http-hooks';
 
 function InsertRecord({ clear, wData }) {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();

@@ -2,11 +2,11 @@ import React from 'react';
 
 import classes from './FilterPanel.module.css';
 
-import Input from '../../../utils/Inputs/Input';
-import Button from '../../../utils/Button/Button';
-import { VALIDATOR_NO, VALIDATOR_REQUIRE } from '../../../utils/validators';
-import { useHttpClient } from '../../../hooks/http-hooks';
-import { useForm } from '../../../hooks/form-hook';
+import Input from '../../../../utils/Inputs/Input';
+import Button from '../../../../utils/Button/Button';
+import { VALIDATOR_NO, VALIDATOR_REQUIRE } from '../../../../utils/validators';
+import { useHttpClient } from '../../../../hooks/http-hooks';
+import { useForm } from '../../../../hooks/form-hook';
 // import {}
 
 function FilterPanel({ action }) {

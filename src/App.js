@@ -8,15 +8,20 @@ import Menu from './components/Menu/Menu';
 import Login from './components/Login/Login';
 
 import classes from './App.module.css';
-import Timbrature from './components/Timbrature/Timbrature';
+
+import Timbratore from './components/Timbrature/Timbrature';
+
 import Presenze from './components/Presenze/Presenze';
-import Dipendenti from './components/Presenze/Dipendenti';
+import Cartellini from './components/Presenze/Cartellini/Cartellini';
+import Dipendenti from './components/Presenze/Dipendenti/Dipendenti';
+
 import Settings from './components/Settings/Settings';
 import Users from './components/Settings/Users/Users';
 
 const comp = {
-	Timbratore: <Timbrature />,
+	Timbratore: <Timbratore />,
 	Presenze: <Presenze />,
+	Cartellini: <Cartellini />,
 	Dipendenti: <Dipendenti />,
 	Impostazioni: <Settings />,
 	Utenti: <Users />,

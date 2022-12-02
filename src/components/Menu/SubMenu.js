@@ -3,11 +3,11 @@ import { NavLink } from 'react-router-dom';
 
 import classes from './SubMenu.module.css';
 
-import { MenuElements } from './../../__data/common';
+import { MenuElements } from '../../__data/common';
 import { hScroll } from '../../lib/horizontalScrol';
 
-function SubMenu() {
-	const parentRoute = 'Impostazioni';
+function SubMenu({ parentRoute }) {
+	// const parentRoute = 'Impostazioni';
 
 	const [menuData, setMenuData] = useState(
 		MenuElements.filter(el => el.description === parentRoute)

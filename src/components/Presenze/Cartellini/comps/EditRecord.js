@@ -2,20 +2,20 @@ import React from 'react';
 
 import classes from './EditRecord.module.css';
 
-import LoadingSpinner from '../../../utils/LoadingSpinner';
-import ErrorModal from '../../../utils/ErrorModal';
-import Button from '../../../utils/Button/Button';
-import Input from '../../../utils/Inputs/Input';
+import LoadingSpinner from '../../../../utils/LoadingSpinner';
+import ErrorModal from '../../../../utils/ErrorModal';
+import Button from '../../../../utils/Button/Button';
+import Input from '../../../../utils/Inputs/Input';
 
-import { useForm } from '../../../hooks/form-hook';
+import { useForm } from '../../../../hooks/form-hook';
 import {
 	VALIDATOR_MIN,
 	VALIDATOR_MAX,
 	VALIDATOR_NO,
-} from '../../../utils/validators';
-import { useHttpClient } from '../../../hooks/http-hooks';
+} from '../../../../utils/validators';
+import { useHttpClient } from '../../../../hooks/http-hooks';
 
-import IconButton from '../../../utils/IconButton';
+import IconButton from '../../../../utils/IconButton';
 
 function EditRecord({ clear, wData }) {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();

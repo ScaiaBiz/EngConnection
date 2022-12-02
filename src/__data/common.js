@@ -15,6 +15,13 @@ export const MenuElements = [
 		auth: 100,
 		subMenu: [
 			{
+				_id: 2005,
+				description: 'Cartellini',
+				path: '/Cartellini',
+				element: 'Cartellini',
+				auth: 0,
+			},
+			{
 				_id: 2010,
 				description: 'Dipendenti',
 				path: '/Dipendenti',
