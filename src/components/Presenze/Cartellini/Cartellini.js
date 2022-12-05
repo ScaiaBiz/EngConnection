@@ -24,12 +24,15 @@ import IconButton from '../../../utils/IconButton';
 function Presenze() {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const [tagRecords, setTagRecords] = useState([]);
+	const [refundRecords, setRefundRecords] = useState([]);
+
 	const [employees, setEmployees] = useState([]);
 	const [homePage, setHomePage] = useState(null);
 	const [workingDate, setWorkingDate] = useState(null);
 	const [currentDate, setCurrentDate] = useState(null);
 	const [printingID, setprintingID] = useState(null);
 
+	const [selectedEmployee, setSelectedEmployee] = useState(null);
 	const [showInsertRecord, setShowInsertRecord] = useState(false);
 	const insertRecordHandler = (reload = false) => {
 		setShowInsertRecord(!showInsertRecord);
@@ -73,19 +76,30 @@ function Presenze() {
 		}
 	};
 
-	const getRecors = async date => {
+	const getRecors = async () => {
 		const records = await sendRequest(
-			'attendance/getRecords',
+			`attendance/getRecords/`,
 			'POST',
-			{ date: date },
+			{ date: workingDate, tagId: selectedEmployee.tagId },
 			{ 'Content-Type': 'application/json' }
 		);
 		setTagRecords(records);
 	};
 
+	const getRefunds = async () => {
+		const records = await sendRequest(
+			`attendance/getRefundRecords/`,
+			'POST',
+			{ date: workingDate, tagId: selectedEmployee.tagId },
+			{ 'Content-Type': 'application/json' }
+		);
+		setRefundRecords(records);
+	};
+
 	useEffect(() => {
 		if (workingDate) {
 			getRecors();
+			getRefunds();
 		}
 	}, [workingDate]);
 
@@ -131,16 +145,18 @@ function Presenze() {
 		}
 
 		let employeeAttendances = employees.map(e => {
+			if (e._id !== selectedEmployee._id) {
+				return;
+			}
+
 			const dayRows = [];
 
-			// let dateInUse;
 			for (
 				let filterDate = startDate.getTime();
 				filterDate <= endDate.getTime();
 				filterDate += 24 * 60 * 60 * 1000
 			) {
 				let isExit = false;
-				// dateInUse = filterDate;
 				let fDate = dmyFromDateString(new Date(filterDate));
 				let dayRow = [];
 				tagRecords.map(re => {
@@ -167,12 +183,6 @@ function Presenze() {
 					}
 
 					if (!m.isExit) {
-						// console.log(
-						// 	'Entrata: ' +
-						// 		TotalMinToHourMin(
-						// 			roundHoursFromDate(recordDate, false, m.isExit, e.roundsIN)
-						// 		)
-						// );
 						workedMins -= roundHoursFromDate(
 							recordDate,
 							false,
@@ -180,24 +190,18 @@ function Presenze() {
 							e.roundsIN
 						);
 					} else {
-						// console.log(
-						// 	'Uscita: ' +
-						// 		TotalMinToHourMin(
-						// 			roundHoursFromDate(recordDate, false, m.isExit, e.roundsIN)
-						// 		)
-						// );
 						workedMins += roundHoursFromDate(
 							recordDate,
 							false,
 							m.isExit,
 							e.roundsOUT
 						);
-						// console.log(TotalMinToHourMin(workedMins));
 					}
 
 					return m;
 				});
 
+				//todo: Gestire confronto extra con ore giornaliere
 				let rowExtra = workedMins - 8 * 60;
 
 				dayRows.push(
@@ -256,6 +260,8 @@ function Presenze() {
 							</div>
 							{TotalMinToHourMin(rowExtra)}
 						</div>
+						<div className={`${classes.totRow} `}>€</div>
+						<div className={`${classes.totRow} `}>Km</div>
 						<div
 							className={`${classes.totRow} ${classes.addNewRecord}`}
 							style={{
@@ -287,6 +293,8 @@ function Presenze() {
 
 					<div className={classes.totRow}>Totale</div>
 					<div className={classes.totRow}>Extra</div>
+					<div className={classes.totRow}>Spese</div>
+					<div className={classes.totRow}>KM</div>
 					<div className={classes.totRow}>Nuova</div>
 				</div>
 			);
@@ -315,12 +323,7 @@ function Presenze() {
 
 		// console.log(employeeAttendances);
 		const visual = (
-			<>
-				<div className={classes.filters}>
-					<FilterPanel action={setWorkingDate} />
-				</div>
-				<div className={classes.attendance}>{employeeAttendances}</div>
-			</>
+			<div className={classes.attendance}>{employeeAttendances}</div>
 		);
 		setHomePage(visual);
 	};
@@ -333,34 +336,19 @@ function Presenze() {
 		getHomePage();
 	}, [employees, tagRecords]);
 
-	const getHeaderLink = () => {
-		if (child) {
-			return (
-				<NavLink to={'/Presenze'} className={classes.navigation}>
-					<div className={classes.header}>
-						<IconButton text='arrow_back' />| Presenze
-					</div>
-				</NavLink>
-			);
-		} else {
-			return (
-				<NavLink to={'/Presenze/Dipendenti'} className={classes.navigation}>
-					<div className={classes.header}>
-						<IconButton text='arrow_forward' />| Dipendenti
-					</div>
-				</NavLink>
-			);
-		}
-	};
-
 	return (
 		<React.Fragment>
 			{error && <ErrorModal error={error} onClear={clearError} />}
 			{isLoading && <LoadingSpinner asOverlay />}
 			{showInsertRecord && addNewRecord()}
 			<div className={classes.container}>
-				{getHeaderLink()}
-				{!child && homePage}
+				<div className={classes.filters}>
+					<FilterPanel
+						action={setWorkingDate}
+						setSelected={setSelectedEmployee}
+					/>
+				</div>
+				{selectedEmployee && homePage}
 				<Outlet />
 			</div>
 		</React.Fragment>

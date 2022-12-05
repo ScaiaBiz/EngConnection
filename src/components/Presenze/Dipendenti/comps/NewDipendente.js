@@ -43,7 +43,7 @@ const NewDipendente = ({ close }) => {
 			type: 'number',
 			label: 'Arrot. Entrata',
 			validator: [VALIDATOR_REQUIRE()],
-			initValue: 15,
+			initValue: 5,
 			initIsValid: true,
 		},
 		roundsOUT: {
@@ -53,7 +53,7 @@ const NewDipendente = ({ close }) => {
 			type: 'number',
 			label: 'Arrot. USCITA',
 			validator: [VALIDATOR_REQUIRE()],
-			initValue: 15,
+			initValue: 5,
 			initIsValid: true,
 		},
 

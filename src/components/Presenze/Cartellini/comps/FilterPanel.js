@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import classes from './FilterPanel.module.css';
 
@@ -7,9 +7,10 @@ import Button from '../../../../utils/Button/Button';
 import { VALIDATOR_NO, VALIDATOR_REQUIRE } from '../../../../utils/validators';
 import { useHttpClient } from '../../../../hooks/http-hooks';
 import { useForm } from '../../../../hooks/form-hook';
-// import {}
 
-function FilterPanel({ action }) {
+import Find from '../../../../utils/Inputs/Find';
+
+function FilterPanel({ action, setSelected }) {
 	// const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
 	const [formState, inputHandler, setFormData] = useForm({
@@ -51,18 +52,37 @@ function FilterPanel({ action }) {
 		return inputsVisual;
 	};
 
-	let filtersHide = false;
-	const handleHideFilters = () => {};
+	const [filtersHide, setFiltersHide] = useState(true);
+	const handleHideFilters = () => {
+		setFiltersHide(!filtersHide);
+	};
 
 	const getCard = () => {};
 
+	const selectAndClose = empl => {
+		setSelected(empl);
+		handleHideFilters();
+	};
+
 	return (
-		<div id='my_filters' className={`${classes.container}`}>
+		<div id='Cartellini_my_filters' className={`${classes.wrapper}`}>
 			<div
 				className={`${classes.filters} ${
 					filtersHide && classes.inputs__hidden
 				}`}
 			>
+				<Find
+					url={`employee/getActiveEmployeesList`}
+					setRes={setSelected}
+					label='Utente collegato'
+					inputId='userId'
+					initialValue=''
+					initValue=''
+					driver={'fullname'}
+					resName={null}
+					isArray={true}
+					// width={`100%`}
+				/>
 				{setInputs()}
 
 				<Button
@@ -71,15 +91,15 @@ function FilterPanel({ action }) {
 					onClick={() => {
 						console.log('Faccio cose');
 						action(new Date(formState.inputs.date.value));
-						// handleHideFilters();
+						handleHideFilters();
 					}}
 				>
 					Carica
 				</Button>
 			</div>
-			{/* <div className={classes.filtersHandler} onClick={handleHideFilters}>
+			<div className={classes.filtersHandler} onClick={handleHideFilters}>
 				{filtersHide ? 'Mostra filtri' : 'Chiudi'}
-			</div> */}
+			</div>
 		</div>
 	);
 }

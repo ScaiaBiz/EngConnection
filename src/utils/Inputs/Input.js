@@ -60,7 +60,11 @@ const Input = props => {
 		const date = new Date();
 		// let _d = date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear();
 		let _d =
-			date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+			date.getFullYear() +
+			'-' +
+			(date.getMonth() + 1) +
+			'-' +
+			('0' + date.getDate()).slice(-2);
 		e.target.value = _d.toString();
 		dispatch({
 			type: 'CHANGE',
