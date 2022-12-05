@@ -16,7 +16,7 @@ export const useHttpClient = () => {
 
 	const userCtx = useContext(UserCxt);
 
-	let debug = true;
+	let debug = false;
 
 	const activeHttpReq = useRef([]);
 
