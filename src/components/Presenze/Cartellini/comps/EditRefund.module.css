@@ -1,0 +1,110 @@
+.background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background-color: var(--backdrop);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 50;
+}
+
+.wrapper {
+	position: absolute;
+	top: 12%;
+	left: 25%;
+	height: 76%;
+	width: 50%;
+	background-color: var(--bgLight);
+	border: 1px solid var(--higlight);
+	border-radius: 10px;
+	box-shadow: 2px 2px 2px var(--bgColor);
+	padding: 2%;
+	z-index: 60;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
+	justify-content: space-between;
+}
+
+.refunds {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 1rem;
+	overflow: auto;
+}
+
+.header {
+	font-size: 2rem;
+	line-height: 2rem;
+	display: flex;
+	align-items: center;
+	width: 90%;
+}
+
+.header__icon {
+	width: fit-content;
+	padding: 2%;
+	color: var(--activeLink);
+	background-color: var(--contrast);
+	border: 1px solid var(--activeLink);
+	border-radius: 10px;
+	box-shadow: 1px 2px 3px var(--bgColor);
+}
+
+.header__text {
+	margin-left: 1rem;
+}
+
+.refundCard {
+	width: 90%;
+	margin: 0.5rem;
+	padding: 0.5rem;
+	background-color: var(--contrast);
+	border: 1px solid var(--bgColor);
+	border-radius: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.refundCard__content {
+	display: flex;
+	flex-direction: column;
+}
+
+.refundCard__buttons {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	font-size: 1.5rem;
+	height: 100%;
+}
+
+.refundCard__buttons__close {
+	color: var(--bgColor);
+}
+.refundCard__buttons__close:hover {
+	text-shadow: 1px 2px 3px var(--activeLink);
+}
+.refundCard__buttons__edit {
+	color: var(--activeLink);
+}
+.refundCard__buttons__edit:hover {
+	text-shadow: 1px 1px 3px var(--activeLink);
+}
+
+.form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}

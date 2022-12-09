@@ -2,18 +2,23 @@ import React from 'react';
 
 import classes from './RefundRewiew.module.css';
 
+import { formatNumberCurrency, formatNumber2Dig } from '../../../lib/numbers';
+
 function RefundRewiew({ clear, type, data }) {
+	console.log({ data });
 	const printTrips = () => {
 		const tripsVisual = data.map(trip => {
-			let km = Number(trip.value).toLocaleString('de-DE', {
-				minimumFractionDigits: 2,
-			});
 			return (
 				<div className={classes.card}>
 					<p>
-						Tragitto: {trip.tripFrom} - {trip.tripTo}: {km}km
+						<b>Distanza</b>: {formatNumber2Dig(trip.value)}km
 					</p>
-					<p>Descrizione: {trip.description}</p>
+					<p>
+						<b>Tragitto</b>: {trip.tripFrom} {'->'} {trip.tripTo}
+					</p>
+					<p>
+						<b>Descrizione</b>: {trip.description}
+					</p>
 				</div>
 			);
 		});
@@ -25,13 +30,11 @@ function RefundRewiew({ clear, type, data }) {
 			return (
 				<div className={classes.card}>
 					<p>
-						Importo:{' '}
-						{Number(expense.value).toLocaleString('it-IT', {
-							style: 'currency',
-							currency: 'EUR',
-						})}{' '}
+						<b>Importo</b>: {formatNumberCurrency(expense.value)}
 					</p>
-					<p>Descrizione: {expense.description}</p>
+					<p>
+						<b>Descrizione</b>: {expense.description}
+					</p>
 				</div>
 			);
 		});

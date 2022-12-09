@@ -2,7 +2,7 @@ import React from 'react';
 
 import './IconButton.css';
 
-function Svg({ type, action, text, style }) {
+function IconButton({ type, action, text, style }) {
 	if (text) {
 		return (
 			<span className='material-icons' onClick={action} style={style}>
@@ -14,4 +14,4 @@ function Svg({ type, action, text, style }) {
 	return <>Errore</>;
 }
 
-export default Svg;
+export default IconButton;

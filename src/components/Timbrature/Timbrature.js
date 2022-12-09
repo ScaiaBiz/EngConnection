@@ -318,8 +318,6 @@ function Timbrature() {
 							<IconButton text={'format_list_bulleted'} />
 						</div>
 					</div>
-					{/* <div>Rimborso KM {printTodayTrips()}</div>
-				<div>Rimborso Spese {printTodayExpense()}</div> */}
 				</div>
 			</div>
 		</React.Fragment>

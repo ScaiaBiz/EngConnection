@@ -18,6 +18,7 @@ import Svg from '../../../utils/IconButton';
 import FilterPanel from './comps/FilterPanel';
 import InsertRecord from './comps/InsertRecord';
 import EditRecord from './comps/EditRecord';
+import EditRefund from './comps/EditRefund';
 
 import IconButton from '../../../utils/IconButton';
 
@@ -50,11 +51,11 @@ function Presenze() {
 	const getData = async () => {
 		let e_data = await sendRequest('employee/getEmployeesList');
 		setEmployees(e_data);
-		getRecors();
+		// getRecors();
 	};
 
 	const addNewRecord = () => {
-		console.log(currentDate);
+		// console.log(currentDate);
 		if (currentDate.edit) {
 			const editRecordForm = (
 				<EditRecord clear={insertRecordHandler} wData={currentDate} />
@@ -86,7 +87,40 @@ function Presenze() {
 		setTagRecords(records);
 	};
 
+	const [refundData, setRefundData] = useState(null);
+	const [showEditRefund, setShowEditRefund] = useState(false);
+	const editRefundHandler = (reload = false) => {
+		if (showEditRefund) {
+			setRefundData(null);
+		}
+		setShowEditRefund(!showEditRefund);
+		if (reload) {
+			console.log('her');
+			getRefunds();
+		}
+	};
+
+	const editRefundForm = () => {
+		const form = (
+			<EditRefund
+				r_data={refundData}
+				clear={editRefundHandler}
+				employee={selectedEmployee}
+			/>
+		);
+
+		return ReactDom.createPortal(form, document.getElementById('modal-hook'));
+	};
+
+	useEffect(() => {
+		if (refundData) {
+			editRefundHandler();
+		}
+	}, [refundData]);
+
 	const getRefunds = async () => {
+		console.log({ selectedEmployee });
+		console.log(selectedEmployee.tagId);
 		const records = await sendRequest(
 			`attendance/getRefundRecords/`,
 			'POST',
@@ -102,8 +136,6 @@ function Presenze() {
 			getRefunds();
 		}
 	}, [workingDate]);
-
-	let child = useOutlet();
 
 	const printEmployeeCard = () => {
 		const page = document.getElementById(printingID._id);
@@ -125,6 +157,40 @@ function Presenze() {
 		}
 	}, [printingID]);
 
+	const evalRefunds = (type, date) => {
+		const workingDate = new Date(date);
+
+		const lineDate = workingDate.toLocaleString('it-IT').split(',')[0];
+		let value = 0;
+
+		const filteredRefund = refundRecords.filter(rec => {
+			return rec.type === type;
+		});
+
+		const data = filteredRefund.map(refund => {
+			let recDate = new Date(refund.date).toLocaleString('it-IT').split(',')[0];
+			if (refund.type === type && lineDate === recDate) {
+				value += refund.value;
+				refund.stringDate = recDate;
+				return refund;
+			}
+			return null;
+		});
+
+		data.unshift({ lineDate: lineDate, type: type, temp: true });
+
+		return (
+			<div
+				className={`${classes.dailyTime_time} ${classes.totRow}`}
+				onClick={() => {
+					setRefundData(data);
+				}}
+			>
+				{`${value.toLocaleString()} ${type === 'trip' ? 'km' : '€'}`}
+			</div>
+		);
+	};
+
 	const getHomePage = async () => {
 		const today = new Date();
 		const w_day = workingDate === null ? today : workingDate;
@@ -138,7 +204,6 @@ function Presenze() {
 			dummyEndDate.setDate(31);
 
 			let day = dummyEndDate.getDate();
-			// console.log({ day });
 			endDate = new Date(dummyEndDate);
 			endDate.setDate(31 - day);
 			endDate.setMonth(startDate.getMonth());
@@ -260,8 +325,8 @@ function Presenze() {
 							</div>
 							{TotalMinToHourMin(rowExtra)}
 						</div>
-						<div className={`${classes.totRow} `}>€</div>
-						<div className={`${classes.totRow} `}>Km</div>
+						{evalRefunds('expense', filterDate)}
+						{evalRefunds('trip', filterDate)}
 						<div
 							className={`${classes.totRow} ${classes.addNewRecord}`}
 							style={{
@@ -270,7 +335,7 @@ function Presenze() {
 								justifyContent: 'flex-end',
 							}}
 						>
-							<Svg
+							<IconButton
 								className={''}
 								text='add_circle'
 								action={() => {
@@ -284,7 +349,7 @@ function Presenze() {
 			}
 
 			dayRows.unshift(
-				<div className={classes.dailyRowHeader}>
+				<div key={'dailyRowHeader'} className={classes.dailyRowHeader}>
 					<div className={classes.dailyDate}>
 						{MonthStringFromDateString(startDate)}
 					</div>
@@ -321,7 +386,6 @@ function Presenze() {
 			return card;
 		});
 
-		// console.log(employeeAttendances);
 		const visual = (
 			<div className={classes.attendance}>{employeeAttendances}</div>
 		);
@@ -334,13 +398,14 @@ function Presenze() {
 
 	useEffect(() => {
 		getHomePage();
-	}, [employees, tagRecords]);
+	}, [tagRecords, refundRecords]);
 
 	return (
 		<React.Fragment>
 			{error && <ErrorModal error={error} onClear={clearError} />}
 			{isLoading && <LoadingSpinner asOverlay />}
 			{showInsertRecord && addNewRecord()}
+			{showEditRefund && editRefundForm()}
 			<div className={classes.container}>
 				<div className={classes.filters}>
 					<FilterPanel
@@ -348,8 +413,8 @@ function Presenze() {
 						setSelected={setSelectedEmployee}
 					/>
 				</div>
-				{selectedEmployee && homePage}
-				<Outlet />
+				{selectedEmployee && refundRecords && tagRecords && homePage}
+				{/* <Outlet /> */}
 			</div>
 		</React.Fragment>
 	);
