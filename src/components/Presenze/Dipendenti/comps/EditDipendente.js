@@ -179,7 +179,7 @@ function EditDipendente({ close, employee }) {
 
 	const evalWeekStruture = () => {
 		console.log(employee.weekStructure);
-		const _data = employee.weekStructure[0];
+		const _data = employee.weekStructure;
 
 		// const days = {
 		// 	0: 'Domenica',
@@ -199,11 +199,8 @@ function EditDipendente({ close, employee }) {
 			5: 'Ven',
 			6: 'Sab',
 		};
-		// _data.push(_data.shift());
-		// days.push(days.shift());
-		// let i = -1;
 
-		console.log(_data);
+		// console.log({ _data });
 
 		let _visual = [];
 		let weekTotH = 0;
