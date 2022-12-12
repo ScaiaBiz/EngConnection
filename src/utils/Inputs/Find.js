@@ -34,7 +34,7 @@ function Find({
 	const getData = async () => {
 		try {
 			const d = await sendRequest(url);
-			console.log(d);
+			// console.log(d);
 			setFullRess(d);
 			if (resName) {
 				const res = d[resName]?.map(el => {
@@ -75,9 +75,9 @@ function Find({
 		getData();
 	}, [trigger]);
 
-	useEffect(() => {
-		console.log({ list });
-	}, [list]);
+	// useEffect(() => {
+	// 	console.log({ list });
+	// }, [list]);
 
 	useEffect(() => {
 		if (formState.isValid) {
@@ -92,7 +92,7 @@ function Find({
 					}
 				});
 			} else {
-				console.log({ list });
+				// console.log({ list });
 				fullRess.map(el => {
 					if (el[driver] === val) {
 						setRes(el);

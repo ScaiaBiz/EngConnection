@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import classes from './EditDipendente.module.css';
 
@@ -11,8 +11,12 @@ import Button from '../../../../utils/Button/Button';
 import LoadingSpinner from '../../../../utils/LoadingSpinner';
 import ErrorModal from '../../../../utils/ErrorModal';
 
+import Find from '../../../../utils/Inputs/Find';
+
 function EditDipendente({ close, employee }) {
-	// console.log(employee);
+	const [selectedUser, setSelectedUser] = useState(employee.userId);
+
+	console.log(employee);
 	const [formState, inputHandler, setFormData] = useForm({
 		name: {
 			value: employee.name,
@@ -34,27 +38,16 @@ function EditDipendente({ close, employee }) {
 			initValue: employee.surname,
 			initIsValid: true,
 		},
-
-		hiringDate: {
-			value: employee.hiringDate,
-			isValid: true,
-			el: 'date',
-			type: 'date',
-			label: 'Data assunzione',
-			validator: [VALIDATOR_NO()],
-			initValue: employee.hiringDate.split('T')[0],
-			initIsValid: true,
-		},
-		tagId: {
-			value: employee.tagId,
-			isValid: true,
-			el: 'input',
-			type: 'number',
-			label: 'Nr. Tag',
-			validator: [VALIDATOR_REQUIRE()],
-			initValue: employee.tagId,
-			initIsValid: true,
-		},
+		// tagId: {
+		// 	value: employee.tagId,
+		// 	isValid: true,
+		// 	el: 'input',
+		// 	type: 'input',
+		// 	label: 'Nr. Tag',
+		// 	validator: [VALIDATOR_REQUIRE()],
+		// 	initValue: employee.tagId,
+		// 	initIsValid: true,
+		// },
 		roundsIN: {
 			value: employee.roundsIN,
 			isValid: true,
@@ -95,6 +88,16 @@ function EditDipendente({ close, employee }) {
 			initValue: employee.isActive,
 			initIsValid: true,
 		},
+		hiringDate: {
+			value: employee.hiringDate,
+			isValid: true,
+			el: 'date',
+			type: 'date',
+			label: 'Data assunzione',
+			validator: [VALIDATOR_NO()],
+			initValue: employee.hiringDate.split('T')[0],
+			initIsValid: true,
+		},
 	});
 
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -110,7 +113,7 @@ function EditDipendente({ close, employee }) {
 				name: rdata.name.value,
 				surname: rdata.surname.value,
 				hiringDate: rdata.hiringDate.value,
-				tagId: rdata.tagId.value,
+				// tagId: rdata.tagId.value,
 				roundsIN: rdata.roundsIN.value,
 				roundsOUT: rdata.roundsOUT.value,
 				enableExtras: rdata.enableExtras.value,
@@ -166,12 +169,69 @@ function EditDipendente({ close, employee }) {
 
 	const getInlineAbortStyle = () => {
 		const { innerWidth: width } = window;
-		console.log(width);
+		// console.log(width);
 		if (width >= 768) {
 			return { width: 25 + '%', fontSize: 20 + 'px' };
 		} else {
 			return { width: 94 + '%', fontSize: 20 + 'px' };
 		}
+	};
+
+	const evalWeekStruture = () => {
+		console.log(employee.weekStructure);
+		const _data = employee.weekStructure[0];
+
+		// const days = {
+		// 	0: 'Domenica',
+		// 	1: 'Lunedì',
+		// 	2: 'Martedì',
+		// 	3: 'Mercoledì',
+		// 	4: 'Giovedì',
+		// 	5: 'Venerdì',
+		// 	6: 'Sabato',
+		// };
+		const days = {
+			0: 'Dom',
+			1: 'Lun',
+			2: 'Mar',
+			3: 'Mer',
+			4: 'Gio',
+			5: 'Ven',
+			6: 'Sab',
+		};
+		// _data.push(_data.shift());
+		// days.push(days.shift());
+		// let i = -1;
+
+		console.log(_data);
+
+		let _visual = [];
+		let weekTotH = 0;
+		for (let i = 0; i < 7; i++) {
+			let ix = 0;
+			if (i < 6) {
+				ix = i + 1;
+			}
+			weekTotH += Number(_data[ix]);
+			_visual.push(
+				<div className={classes.weekStructure__days__day}>
+					<p>{days[ix]}</p>
+					<p>{Number(_data[ix])}</p>
+				</div>
+			);
+		}
+		_visual.push(
+			<div className={classes.weekStructure__days__day}>
+				<p>
+					<b>Totale</b>
+				</p>
+				<p>
+					<b>{Number(weekTotH)}</b>
+				</p>
+			</div>
+		);
+
+		return _visual;
 	};
 
 	return (
@@ -181,7 +241,26 @@ function EditDipendente({ close, employee }) {
 			<div className={classes.container} onClick={close} />
 			<div className={classes.content}>
 				<div className={classes.form}>
+					<Find
+						url={`authentication/activeUsersList`}
+						setRes={setSelectedUser}
+						label='Utente collegato'
+						inputId='userId'
+						initialValue={selectedUser.name}
+						initValue={selectedUser}
+						driver={'name'}
+						resName={null}
+						isArray={true}
+						width={`100%`}
+					/>
 					{setInputs()}
+					<div className={classes.weekStructure}>
+						<b>Ore settimanali:</b>
+						<div className={classes.weekStructure__days}>
+							{evalWeekStruture()}
+						</div>
+					</div>
+
 					<Button
 						clname='reverseDanger'
 						onClick={postDeleteEmpliyee}

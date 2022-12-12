@@ -14,7 +14,6 @@ import {
 import { useHttpClient } from '../../../hooks/http-hooks';
 import LoadingSpinner from '../../../utils/LoadingSpinner';
 import ErrorModal from '../../../utils/ErrorModal';
-import Svg from '../../../utils/IconButton';
 import FilterPanel from './comps/FilterPanel';
 import InsertRecord from './comps/InsertRecord';
 import EditRecord from './comps/EditRecord';

@@ -15,9 +15,9 @@
 .content {
 	position: absolute;
 	top: 10%;
-	left: 25%;
+	left: 15%;
 	height: 80%;
-	width: 50%;
+	width: 70%;
 	background-color: var(--bgLight);
 	border: 1px solid var(--higlight);
 	border-radius: 10px;
