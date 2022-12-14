@@ -43,7 +43,9 @@
 }
 
 .employeeCard {
+	background-color: var(--contrast);
 	border: 1px solid var(--bgColor);
+	border-radius: 10px;
 	padding: 1%;
 	width: 45%;
 	min-width: fit-content;
@@ -86,6 +88,16 @@
 	display: flex;
 	border-bottom: 1px solid var(--bgColor);
 	padding: 0.15rem;
+}
+
+.day0 {
+	/* background-color: var(--higlight); */
+	background-color: var(--activeLink);
+	/* color: var(--contrast); */
+}
+.day6 {
+	background-color: var(--bgLight);
+	/* color: var(--contrast); */
 }
 
 .dailyRowHeader {
@@ -159,7 +171,7 @@
 	/* color: var(--ENDEDtext); */
 	/* color: var(--ENDEDtext); */
 	/* color: gray; */
-	text-shadow: -1px -1px 2px white;
+	/* text-shadow: -1px -1px 2px white; */
 	font-size: 24px;
 	/* min-width: fit-content;
 	margin: 0 5%; */

@@ -54,7 +54,6 @@ function Presenze() {
 	};
 
 	const addNewRecord = () => {
-		// console.log(currentDate);
 		if (currentDate.edit) {
 			const editRecordForm = (
 				<EditRecord clear={insertRecordHandler} wData={currentDate} />
@@ -266,10 +265,16 @@ function Presenze() {
 				});
 
 				//todo: Gestire confronto extra con ore giornaliere
-				let rowExtra = workedMins - 8 * 60;
+				const dayOfTheWeek = new Date(filterDate).getDay();
+				const extraLimit = selectedEmployee.weekStructure[dayOfTheWeek];
+				let rowExtra = workedMins - extraLimit * 60;
+				// console.log({ dayOfTheWeek });
+				// console.log({ rowExtra });
 
 				dayRows.push(
-					<div className={classes.dailyRow}>
+					<div
+						className={`${classes.dailyRow} ${classes[`day${dayOfTheWeek}`]}`}
+					>
 						<div className={classes.dailyDate}>{fDate}</div>
 						<div className={classes.dailyTime}>
 							{movements.map(m => {
