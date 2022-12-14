@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactDom from 'react-dom';
 
 import classes from './NewDipendente.module.css';
 
@@ -11,6 +12,8 @@ import Input from '../../../../utils/Inputs/Input';
 import Button from '../../../../utils/Button/Button';
 import LoadingSpinner from '../../../../utils/LoadingSpinner';
 import ErrorModal from '../../../../utils/ErrorModal';
+
+import WeekStructure from './WeekStructure';
 
 const NewDipendente = ({ close }) => {
 	const [linkToUser, setLinkToUser] = useState('');
@@ -90,6 +93,7 @@ const NewDipendente = ({ close }) => {
 				isActive: true,
 				turnId: '',
 				groupId: '',
+				weekStructure: dailyHours,
 			},
 			{ 'Content-Type': 'application/json' }
 		);
@@ -126,6 +130,17 @@ const NewDipendente = ({ close }) => {
 		return inputsVisual;
 	};
 
+	// WeeckStructure
+	const [dailyHours, setDailyHours] = useState({
+		0: 0,
+		1: 8,
+		2: 8,
+		3: 8,
+		4: 8,
+		5: 8,
+		6: 0,
+	});
+
 	return (
 		<React.Fragment>
 			{isLoading && <LoadingSpinner asOverlay />}
@@ -146,6 +161,7 @@ const NewDipendente = ({ close }) => {
 						width={`100%`}
 					/>
 					{setInputs()}
+					<WeekStructure week={dailyHours} setNewData={setDailyHours} />
 					<div className={classes.form__buttons}>
 						<Button
 							clname='danger'

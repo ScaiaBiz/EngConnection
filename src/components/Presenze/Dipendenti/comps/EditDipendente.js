@@ -13,6 +13,8 @@ import ErrorModal from '../../../../utils/ErrorModal';
 
 import Find from '../../../../utils/Inputs/Find';
 
+import WeekStructure from './WeekStructure';
+
 function EditDipendente({ close, employee }) {
 	const [selectedUser, setSelectedUser] = useState(employee.userId);
 
@@ -120,6 +122,7 @@ function EditDipendente({ close, employee }) {
 				isActive: rdata.isActive.value,
 				turnId: '',
 				groupId: '',
+				weekStructure: dailyHours,
 			},
 			{ 'Content-Type': 'application/json' }
 		);
@@ -167,6 +170,8 @@ function EditDipendente({ close, employee }) {
 		return inputsVisual;
 	};
 
+	const [dailyHours, setDailyHours] = useState(employee.weekStructure);
+
 	const getInlineAbortStyle = () => {
 		const { innerWidth: width } = window;
 		// console.log(width);
@@ -175,60 +180,6 @@ function EditDipendente({ close, employee }) {
 		} else {
 			return { width: 94 + '%', fontSize: 20 + 'px' };
 		}
-	};
-
-	const evalWeekStruture = () => {
-		console.log(employee.weekStructure);
-		const _data = employee.weekStructure;
-
-		// const days = {
-		// 	0: 'Domenica',
-		// 	1: 'Lunedì',
-		// 	2: 'Martedì',
-		// 	3: 'Mercoledì',
-		// 	4: 'Giovedì',
-		// 	5: 'Venerdì',
-		// 	6: 'Sabato',
-		// };
-		const days = {
-			0: 'Dom',
-			1: 'Lun',
-			2: 'Mar',
-			3: 'Mer',
-			4: 'Gio',
-			5: 'Ven',
-			6: 'Sab',
-		};
-
-		// console.log({ _data });
-
-		let _visual = [];
-		let weekTotH = 0;
-		for (let i = 0; i < 7; i++) {
-			let ix = 0;
-			if (i < 6) {
-				ix = i + 1;
-			}
-			weekTotH += Number(_data[ix]);
-			_visual.push(
-				<div className={classes.weekStructure__days__day}>
-					<p>{days[ix]}</p>
-					<p>{Number(_data[ix])}</p>
-				</div>
-			);
-		}
-		_visual.push(
-			<div className={classes.weekStructure__days__day}>
-				<p>
-					<b>Totale</b>
-				</p>
-				<p>
-					<b>{Number(weekTotH)}</b>
-				</p>
-			</div>
-		);
-
-		return _visual;
 	};
 
 	return (
@@ -251,12 +202,8 @@ function EditDipendente({ close, employee }) {
 						width={`100%`}
 					/>
 					{setInputs()}
-					<div className={classes.weekStructure}>
-						<b>Ore settimanali:</b>
-						<div className={classes.weekStructure__days}>
-							{evalWeekStruture()}
-						</div>
-					</div>
+
+					<WeekStructure week={dailyHours} setNewData={setDailyHours} />
 
 					<Button
 						clname='reverseDanger'
