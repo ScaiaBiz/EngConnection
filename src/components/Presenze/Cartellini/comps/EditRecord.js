@@ -191,19 +191,21 @@ function EditRecord({ clear, wData }) {
 						Modifica
 					</Button>
 				</div>
-				<IconButton
-					text={'public'}
-					style={{
-						fontSize: '2rem',
-						position: 'absolute',
-						right: '0',
-						color: 'var(--bgColor)',
-						textShadow: '1px 2px 3px var(--activeLink)',
-					}}
-					action={() => {
-						window.open(getLink(), '_blank').focus();
-					}}
-				/>
+				{!wData.record.officeInput && (
+					<IconButton
+						text={'public'}
+						style={{
+							fontSize: '2rem',
+							position: 'absolute',
+							right: '0',
+							color: 'var(--bgColor)',
+							textShadow: '1px 2px 3px var(--activeLink)',
+						}}
+						action={() => {
+							window.open(getLink(), '_blank').focus();
+						}}
+					/>
+				)}
 			</div>
 		</React.Fragment>
 	);
