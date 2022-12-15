@@ -21,7 +21,7 @@ import EditRefund from './comps/EditRefund';
 
 import IconButton from '../../../utils/IconButton';
 
-function Presenze() {
+function Cartellini() {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const [tagRecords, setTagRecords] = useState([]);
 	const [refundRecords, setRefundRecords] = useState([]);
@@ -333,11 +333,11 @@ function Presenze() {
 						{evalRefunds('trip', filterDate)}
 						<div
 							className={`${classes.totRow} ${classes.addNewRecord}`}
-							style={{
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'flex-end',
-							}}
+							// style={{
+							// 	display: 'flex',
+							// 	alignItems: 'center',
+							// 	justifyContent: 'flex-end',
+							// }}
 						>
 							<IconButton
 								className={''}
@@ -364,7 +364,12 @@ function Presenze() {
 					<div className={classes.totRow}>Extra</div>
 					<div className={classes.totRow}>Spese</div>
 					<div className={classes.totRow}>KM</div>
-					<div className={classes.totRow}>Nuova</div>
+					<div
+						className={`${classes.totRow} ${classes.addNewHeader}`}
+						style={{ textAlign: 'right' }}
+					>
+						Nuova
+					</div>
 				</div>
 			);
 
@@ -424,4 +429,4 @@ function Presenze() {
 	);
 }
 
-export default Presenze;
+export default Cartellini;

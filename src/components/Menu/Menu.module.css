@@ -141,3 +141,13 @@
 		width: 100%;
 	}
 }
+
+@media print {
+	.container {
+		display: none;
+	}
+
+	.burger {
+		display: none;
+	}
+}
