@@ -1,0 +1,20 @@
+.wrapper {
+	width: 80%;
+	background-color: var(--contrast);
+	border: 1px solid var(--bgColor);
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+.list {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: left;
+}
+
+.row {
+	/* width: 300px; */
+	width: 17rem;
+	cursor: help;
+}
