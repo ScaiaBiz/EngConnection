@@ -31,7 +31,6 @@ export const useHttpClient = () => {
 	}
 
 	const SRV = srv;
-	// console.log({ SRV });
 
 	let head;
 	if (userCtx?.user[0]?.token) {
@@ -56,7 +55,9 @@ export const useHttpClient = () => {
 			} else {
 				headers = { ...defHeaders };
 			}
-			console.log({ srv });
+			if (debug) {
+				console.log({ srv });
+			}
 			if (APP_name !== currentAppName) {
 				console.log(APP_name + ' vs ' + currentAppName);
 				setError('Nome applicazione errato. Verificare variabili ambientali');
@@ -95,7 +96,9 @@ export const useHttpClient = () => {
 				// if (debug) {
 				// 	console.warn('Debug ON');
 				// }
-				console.log({ responseData });
+				if (debug) {
+					console.log({ responseData });
+				}
 				// console.log(responseData?.message);
 				// console.log(responseData?.errorStatus);
 				// console.log(responseData?.err);
