@@ -28,6 +28,13 @@ export const MenuElements = [
 				element: 'Dipendenti',
 				auth: 0,
 			},
+			{
+				_id: 2900,
+				description: 'Impostazioni',
+				path: '/PresenzeSetups',
+				element: 'PresenzeSetups',
+				auth: 0,
+			},
 		],
 	},
 	{

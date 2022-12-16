@@ -14,6 +14,7 @@ import Timbratore from './components/Timbrature/Timbrature';
 import Presenze from './components/Presenze/Presenze';
 import Cartellini from './components/Presenze/Cartellini/Cartellini';
 import Dipendenti from './components/Presenze/Dipendenti/Dipendenti';
+import PresenzeSetups from './components/Presenze/Setup/PresenzeSetups';
 
 import Settings from './components/Settings/Settings';
 import Users from './components/Settings/Users/Users';
@@ -23,6 +24,7 @@ const comp = {
 	Presenze: <Presenze />,
 	Cartellini: <Cartellini />,
 	Dipendenti: <Dipendenti />,
+	PresenzeSetups: <PresenzeSetups />,
 	Impostazioni: <Settings />,
 	Utenti: <Users />,
 };

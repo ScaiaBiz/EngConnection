@@ -88,6 +88,7 @@ html {
 	padding: 0.5rem;
 	background-color: var(--bgLight);
 	overflow: hidden;
+	display: flex;
 }
 
 @media (max-width: 768px) {
