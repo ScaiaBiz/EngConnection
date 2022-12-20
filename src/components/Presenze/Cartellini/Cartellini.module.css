@@ -165,9 +165,27 @@
 .totRowHidden {
 	visibility: hidden;
 }
+
 .totRowError {
 	color: var(--STOPED);
 	font-weight: bold;
+}
+
+.justification {
+	color: var(--STOPED);
+	font-weight: bold;
+	width: 100px;
+	text-align: center;
+}
+
+.insertJustiification {
+	background-color: var(--STOPED);
+	color: var(--contrast);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 50%;
+	cursor: pointer;
 }
 
 .addNewRecord {
@@ -334,6 +352,10 @@
 	.dailyTime {
 		justify-content: flex-start;
 		width: 200px;
+	}
+
+	.justification {
+		width: 60px;
 	}
 
 	.totRow__desc {

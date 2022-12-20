@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Outlet, useOutlet } from 'react-router-dom';
 import ReactDom from 'react-dom';
 
 import classes from './Cartellini.module.css';
@@ -25,6 +24,7 @@ function Cartellini() {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const [tagRecords, setTagRecords] = useState([]);
 	const [refundRecords, setRefundRecords] = useState([]);
+	const [justificationsRecords, setJustificationsRecords] = useState([]);
 
 	const [employees, setEmployees] = useState([]);
 	const [homePage, setHomePage] = useState(null);
@@ -128,10 +128,17 @@ function Cartellini() {
 		setRefundRecords(records);
 	};
 
+	const getJustifications = async () => {
+		// 	const records = await sendRequest(
+		// 		`attendance/get`
+		// 	)
+	};
+
 	useEffect(() => {
 		if (workingDate) {
 			getRecors();
 			getRefunds();
+			getJustifications();
 		}
 	}, [workingDate]);
 
@@ -187,6 +194,42 @@ function Cartellini() {
 				{`${value.toLocaleString()} ${type === 'trip' ? 'km' : '€'}`}
 			</div>
 		);
+	};
+
+	const evalJustification = (wMin, limit, date) => {
+		let _cont;
+		let cl = `${classes.totRow} ${classes.justification}`;
+		let clChild = ` ${classes.justification} ${classes.totRow__desc}`;
+		let a = 0;
+		if (wMin >= 0 && wMin < limit * 60 && limit !== 0) {
+			if (!a) {
+				_cont = (
+					<div
+						className={classes.insertJustiification}
+						onClick={() => {
+							window.alert('Necessario giustificativo, funzione in sviluppo');
+						}}
+					>
+						<IconButton
+							text={'edit'}
+							action={() => {
+								// window.alert('Richiesto giustificativo, funzione in sviluppo');
+							}}
+						/>
+					</div>
+				);
+			} else {
+				_cont = (
+					<React.Fragment>
+						<div className={clChild}>Giustificativo: </div>
+						CD 00:00
+					</React.Fragment>
+				);
+			}
+		} else {
+			_cont = '';
+		}
+		return <div className={cl}>{_cont}</div>;
 	};
 
 	const getHomePage = async () => {
@@ -264,12 +307,9 @@ function Cartellini() {
 					return m;
 				});
 
-				//todo: Gestire confronto extra con ore giornaliere
 				const dayOfTheWeek = new Date(filterDate).getDay();
 				const extraLimit = selectedEmployee.weekStructure[dayOfTheWeek];
 				let rowExtra = workedMins - extraLimit * 60;
-				// console.log({ dayOfTheWeek });
-				// console.log({ rowExtra });
 
 				dayRows.push(
 					<div
@@ -329,16 +369,10 @@ function Cartellini() {
 							</div>
 							{TotalMinToHourMin(rowExtra)}
 						</div>
+						{evalJustification(workedMins, extraLimit)}
 						{evalRefunds('expense', filterDate)}
 						{evalRefunds('trip', filterDate)}
-						<div
-							className={`${classes.totRow} ${classes.addNewRecord}`}
-							// style={{
-							// 	display: 'flex',
-							// 	alignItems: 'center',
-							// 	justifyContent: 'flex-end',
-							// }}
-						>
+						<div className={`${classes.totRow} ${classes.addNewRecord}`}>
 							<IconButton
 								className={''}
 								text='add_circle'
@@ -362,13 +396,14 @@ function Cartellini() {
 
 					<div className={classes.totRow}>Totale</div>
 					<div className={classes.totRow}>Extra</div>
+					<div className={classes.totRow}>Giust.</div>
 					<div className={classes.totRow}>Spese</div>
 					<div className={classes.totRow}>KM</div>
 					<div
 						className={`${classes.totRow} ${classes.addNewHeader}`}
 						style={{ textAlign: 'right' }}
 					>
-						Nuova
+						Nuovo
 					</div>
 				</div>
 			);
@@ -423,7 +458,6 @@ function Cartellini() {
 					/>
 				</div>
 				{selectedEmployee && refundRecords && tagRecords && homePage}
-				{/* <Outlet /> */}
 			</div>
 		</React.Fragment>
 	);
