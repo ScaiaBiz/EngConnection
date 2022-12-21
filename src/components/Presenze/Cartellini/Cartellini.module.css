@@ -151,10 +151,6 @@
 	cursor: pointer;
 }
 
-.totRow__desc {
-	display: none;
-}
-
 .totRow {
 	/* padding: 0 6px; */
 	min-width: 80px;
@@ -172,10 +168,22 @@
 }
 
 .justification {
-	color: var(--STOPED);
-	font-weight: bold;
+	/* color: var(--STOPED);
+	font-weight: bold; */
 	width: 100px;
 	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.justification:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.totRow__desc {
+	display: none;
 }
 
 .insertJustiification {
@@ -252,6 +260,14 @@
 
 	.dailyTime {
 		justify-content: center;
+	}
+
+	.justification {
+		width: unset;
+	}
+
+	.insertJustiification {
+		width: 3rem;
 	}
 
 	.totRow__desc {

@@ -13,10 +13,14 @@ import {
 import { useHttpClient } from '../../../hooks/http-hooks';
 import LoadingSpinner from '../../../utils/LoadingSpinner';
 import ErrorModal from '../../../utils/ErrorModal';
+
 import FilterPanel from './comps/FilterPanel';
+
 import InsertRecord from './comps/InsertRecord';
 import EditRecord from './comps/EditRecord';
 import EditRefund from './comps/EditRefund';
+
+import JustificationHandler from './comps/JustificationHandler';
 
 import IconButton from '../../../utils/IconButton';
 
@@ -50,7 +54,6 @@ function Cartellini() {
 	const getData = async () => {
 		let e_data = await sendRequest('employee/getEmployeesList');
 		setEmployees(e_data);
-		// getRecors();
 	};
 
 	const addNewRecord = () => {
@@ -85,6 +88,10 @@ function Cartellini() {
 		setTagRecords(records);
 	};
 
+	//----------------------------------------------------
+	//>>>>>>>>>> Refunds
+	//----------------------------------------------------
+
 	const [refundData, setRefundData] = useState(null);
 	const [showEditRefund, setShowEditRefund] = useState(false);
 	const editRefundHandler = (reload = false) => {
@@ -117,8 +124,6 @@ function Cartellini() {
 	}, [refundData]);
 
 	const getRefunds = async () => {
-		console.log({ selectedEmployee });
-		console.log(selectedEmployee.tagId);
 		const records = await sendRequest(
 			`attendance/getRefundRecords/`,
 			'POST',
@@ -128,17 +133,108 @@ function Cartellini() {
 		setRefundRecords(records);
 	};
 
-	const getJustifications = async () => {
-		// 	const records = await sendRequest(
-		// 		`attendance/get`
-		// 	)
+	//----------------------------------------------------
+	//>>>>>>>>>> Justifications
+	//----------------------------------------------------
+
+	const [justificataionData, setJustificationData] = useState(null);
+	const [showHandleJustification, setShowHandleJustification] = useState(false);
+	const handleJustificationHandler = (reload = false) => {
+		if (showHandleJustification) {
+			setJustificationData(null);
+		}
+		setShowHandleJustification(!showHandleJustification);
+		if (reload) {
+			getJustifications();
+		}
+	};
+
+	const postNewJustification = async data => {
+		if (data.delete) {
+			console.log('Elimino ');
+			await sendRequest(
+				`attendance/deleteJustification/`,
+				'POST',
+				{
+					justificationId: data.prevData._id,
+				},
+				{ 'Content-Type': 'application/json' }
+			);
+		} else {
+			if (data.prevData) {
+				let jstId = data.prevData.justificationId._id;
+				// console.log('Cerco di modificare elemento');
+				if (data.justification._id) {
+					jstId = data.justification._id;
+					// console.log('Cambio giustificativo');
+				}
+
+				await sendRequest(
+					`attendance/editJustification/`,
+					'POST',
+					{
+						justificationId: data.prevData._id,
+						jstModelId: jstId,
+						note: data.note,
+					},
+					{ 'Content-Type': 'application/json' }
+				);
+			} else {
+				// console.log('Nuovo giustificativo');
+				await sendRequest(
+					`attendance/newJustification/`,
+					'POST',
+					{
+						date: data.date,
+						jstModelId: data.justification._id,
+						tagId: selectedEmployee.tagId,
+						note: data.note,
+					},
+					{ 'Content-Type': 'application/json' }
+				);
+			}
+		}
+		handleJustificationHandler(true);
+	};
+
+	const justificationForm = () => {
+		const form = (
+			<JustificationHandler
+				jstData={justificataionData}
+				clear={handleJustificationHandler}
+				postFunction={postNewJustification}
+			/>
+		);
+
+		return ReactDom.createPortal(form, document.getElementById('modal-hook'));
 	};
 
 	useEffect(() => {
+		if (justificataionData) {
+			handleJustificationHandler();
+		}
+	}, [justificataionData]);
+
+	const getJustifications = async () => {
+		const records = await sendRequest(
+			`attendance/getJustificationRecords`,
+			'POST',
+			{ date: workingDate, tagId: selectedEmployee.tagId },
+			{ 'Content-Type': 'application/json' }
+		);
+		// console.log(records);
+		setJustificationsRecords(records);
+	};
+
+	//----------------------------------------------------
+	//>>>>>>>>>> Main Content
+	//----------------------------------------------------
+
+	useEffect(() => {
 		if (workingDate) {
+			getJustifications();
 			getRecors();
 			getRefunds();
-			getJustifications();
 		}
 	}, [workingDate]);
 
@@ -200,30 +296,35 @@ function Cartellini() {
 		let _cont;
 		let cl = `${classes.totRow} ${classes.justification}`;
 		let clChild = ` ${classes.justification} ${classes.totRow__desc}`;
-		let a = 0;
+		let a = null;
+		justificationsRecords.filter(just => {
+			if (new Date(date).getDate() === new Date(just.date).getDate()) {
+				a = just;
+			}
+		});
 		if (wMin >= 0 && wMin < limit * 60 && limit !== 0) {
 			if (!a) {
 				_cont = (
 					<div
 						className={classes.insertJustiification}
-						onClick={() => {
-							window.alert('Necessario giustificativo, funzione in sviluppo');
-						}}
+						onClick={() =>
+							setJustificationData({ currData: a, currDate: date })
+						}
 					>
-						<IconButton
-							text={'edit'}
-							action={() => {
-								// window.alert('Richiesto giustificativo, funzione in sviluppo');
-							}}
-						/>
+						<IconButton text={'edit'} />
 					</div>
 				);
 			} else {
+				// console.log({ a });
 				_cont = (
-					<React.Fragment>
+					<div
+						onClick={() =>
+							setJustificationData({ currData: a, currDate: date })
+						}
+					>
 						<div className={clChild}>Giustificativo: </div>
-						CD 00:00
-					</React.Fragment>
+						{a.justificationId.code} {TotalMinToHourMin(limit * 60 - wMin)}
+					</div>
 				);
 			}
 		} else {
@@ -344,13 +445,7 @@ function Cartellini() {
 							} ${Number(workedMins) == 0 ? classes.totRowHidden : ''}
 							`}
 						>
-							<div
-								className={`
-							${classes.totRow__desc}
-							`}
-							>
-								Totale:{' '}
-							</div>
+							<div className={`${classes.totRow__desc}`}>Totale: </div>
 							{workedMins < 0 ? 'Errore' : TotalMinToHourMin(workedMins)}
 						</div>
 						<div
@@ -369,7 +464,7 @@ function Cartellini() {
 							</div>
 							{TotalMinToHourMin(rowExtra)}
 						</div>
-						{evalJustification(workedMins, extraLimit)}
+						{evalJustification(workedMins, extraLimit, filterDate)}
 						{evalRefunds('expense', filterDate)}
 						{evalRefunds('trip', filterDate)}
 						<div className={`${classes.totRow} ${classes.addNewRecord}`}>
@@ -442,12 +537,13 @@ function Cartellini() {
 
 	useEffect(() => {
 		getHomePage();
-	}, [tagRecords, refundRecords]);
+	}, [tagRecords, refundRecords, justificationsRecords]);
 
 	return (
 		<React.Fragment>
 			{error && <ErrorModal error={error} onClear={clearError} />}
 			{isLoading && <LoadingSpinner asOverlay />}
+			{showHandleJustification && justificationForm()}
 			{showInsertRecord && addNewRecord()}
 			{showEditRefund && editRefundForm()}
 			<div className={classes.container}>
@@ -457,7 +553,11 @@ function Cartellini() {
 						setSelected={setSelectedEmployee}
 					/>
 				</div>
-				{selectedEmployee && refundRecords && tagRecords && homePage}
+				{selectedEmployee &&
+					refundRecords &&
+					tagRecords &&
+					justificationsRecords &&
+					homePage}
 			</div>
 		</React.Fragment>
 	);

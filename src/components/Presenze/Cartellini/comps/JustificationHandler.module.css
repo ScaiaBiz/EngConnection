@@ -1,0 +1,58 @@
+.background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background-color: var(--backdrop);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 50;
+}
+
+.wrapper {
+	position: absolute;
+	top: 12%;
+	left: 25%;
+	height: 76%;
+	width: 50%;
+	background-color: var(--bgLight);
+	border: 1px solid var(--higlight);
+	border-radius: 10px;
+	box-shadow: 2px 2px 2px var(--bgColor);
+	padding: 2%;
+	z-index: 60;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
+	justify-content: space-between;
+}
+
+.mainContent {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 96%;
+	height: 96%;
+}
+
+.inputs {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+@media (max-width: 768px) {
+	.wrapper {
+		top: 5%;
+		left: 5%;
+		height: 90%;
+		width: 90%;
+	}
+}
