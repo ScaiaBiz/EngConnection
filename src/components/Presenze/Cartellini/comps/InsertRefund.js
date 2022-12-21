@@ -36,14 +36,12 @@ function InsertRefund({ formData, postFunction, clear }) {
 	};
 
 	const postData = () => {
-		console.log('Posto');
 		postFunction(formState.inputs);
 		clear();
 	};
+
 	return (
 		<React.Fragment>
-			{/* {isLoading && <LoadingSpinner asOverlay />} */}
-			{/* {error && <ErrorModal error={error} onClear={clearError} />} */}
 			<div className={classes.background} onClick={clear} />
 			<div className={classes.wrapper}>
 				<div className={classes.mainContent}>
